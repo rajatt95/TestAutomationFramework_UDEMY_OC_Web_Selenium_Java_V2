@@ -18,18 +18,19 @@ import org.openqa.selenium.WebDriver;
 
 public class CartPage extends BasePage {
 
-    private final By productName = By.cssSelector("td[class='product-name'] a");
-    private final By checkoutBtn = By.xpath("//a[normalize-space()='Proceed to checkout']");
-
     public CartPage(WebDriver driver){
         super(driver);
     }
+
+    private final By productName = By.cssSelector("td[class='product-name'] a");
+    private final By checkoutBtn = By.xpath("//a[normalize-space()='Proceed to checkout']");
+
 
     public String getProductName(){
         return driver.findElement(productName).getText();
     }
 
-    public CheckoutPage clickCheckoutBtn(){
+    public CheckoutPage checkout(){
         driver.findElement(checkoutBtn).click();
         return new CheckoutPage(driver);
     }

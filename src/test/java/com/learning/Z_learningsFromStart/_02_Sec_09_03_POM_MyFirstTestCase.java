@@ -10,7 +10,7 @@
  # */
 /***************************************************/
 
-package com.learning.Z_extras;
+package com.learning.Z_learningsFromStart;
 
 import com.learning.pom.base.BaseTest;
 import com.learning.pom.pages.HomePage;
@@ -27,7 +27,7 @@ public class _02_Sec_09_03_POM_MyFirstTestCase extends BaseTest {
         driver.get("https://askomdch.com/");
 
         HomePage homePage = new HomePage(driver);
-        StorePage storePage = homePage.clickStoreMenuLink();
+        StorePage storePage = homePage.navigateToStoreUsingMenu();
 
         // Structural Page Objects
 //      storePage.

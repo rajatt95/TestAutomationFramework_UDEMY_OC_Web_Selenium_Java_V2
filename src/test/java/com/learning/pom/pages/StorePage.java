@@ -59,6 +59,11 @@ public class StorePage extends BasePage {
 
     // Functional Page Object
     public StorePage searchProduct(String productName){
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         clearSearchFld();
         enterTxtInSearchFld(productName);
         clickSearchBtn();

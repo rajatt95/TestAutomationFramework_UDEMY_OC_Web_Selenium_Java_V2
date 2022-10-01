@@ -26,10 +26,15 @@ public class HomePage extends BasePage {
         super(driver);
     }
 
+    public HomePage load(){
+        load("");
+        return this;
+    }
+
 //    public void clickStoreMenuLink(){
 //        driver.findElement(storeMenuLink).click();
 //    }
-    public StorePage clickStoreMenuLink(){
+    public StorePage navigateToStoreUsingMenu(){
         driver.findElement(storeMenuLink).click();
 
         // This is the example of Fluent Interface

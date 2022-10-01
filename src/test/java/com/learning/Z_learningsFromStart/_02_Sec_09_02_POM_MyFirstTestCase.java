@@ -10,55 +10,52 @@
  # */
 /***************************************************/
 
-package com.learning.Z_extras;
+package com.learning.Z_learningsFromStart;
 
+import com.learning.pom.base.BaseTest;
+import com.learning.pom.pages.HomePage;
+import com.learning.pom.pages.StorePage;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class _01_Sec_05_Automate_MyFirstTestCase {
-
-//    @Test
-//    public void dummyTestCase(){
-//
-//        // This is manual work -> We are not going to use this
-//        // We will use WebDriverManager (This will take care of the Drivers and Browser versions compatibility)
-//        System.setProperty("webdriver.chrome.driver","Drivers/chromedriver");
-//        WebDriver driver = new ChromeDriver();
-//        driver.get("https://askomdch.com/");
-//    }
+public class _02_Sec_09_02_POM_MyFirstTestCase extends BaseTest {
 
     @Test
     public void guestCheckoutUsingDirectBankTransfer() throws InterruptedException {
 
-        // This is manual work -> We are not going to use this
-        // We will use WebDriverManager (This will take care of the Drivers and Browser versions compatibility)
-        System.setProperty("webdriver.chrome.driver","Drivers/chromedriver");
-        WebDriver driver = new ChromeDriver();
         driver.get("https://askomdch.com/");
-        driver.manage().window().maximize();
 
         System.out.println("Clicking on Store");
-        driver.findElement(By.cssSelector("#menu-item-1227 > a")).click();
+        // driver.findElement(By.cssSelector("#menu-item-1227 > a")).click();
+        HomePage homePage = new HomePage(driver);
+
+        // Example of Fluent Interface (No need to explicitly create object of StorePage class)
+        StorePage storePage = homePage.navigateToStoreUsingMenu();
 
         System.out.println("Filling 'Blue' in search box");
-        driver.findElement(By.xpath("//input[@id='woocommerce-product-search-field-0']")).sendKeys("Blue");
+        // driver.findElement(By.xpath("//input[@id='woocommerce-product-search-field-0']")).sendKeys("Blue");
+        storePage.enterTxtInSearchFld("Blue");
 
         System.out.println("Clicking on Search button");
-        driver.findElement(By.xpath("//button[normalize-space()='Search']")).click();
-
+        // driver.findElement(By.xpath("//button[normalize-space()='Search']")).click();
+        storePage.clickSearchBtn();
 
         System.out.println("Assertion for Heading that comes after click on Search button");
+//        Assert.assertEquals(
+//                driver.findElement(By.cssSelector(".woocommerce-products-header__title.page-title")).getText(),
+//                "Search results: “Blue”",
+//                "Assertion for Heading that comes after click on Search button"
+//        );
         Assert.assertEquals(
-                driver.findElement(By.cssSelector(".woocommerce-products-header__title.page-title")).getText(),
+                storePage.getTitle(),
                 "Search results: “Blue”",
                 "Assertion for Heading that comes after click on Search button"
         );
 
         System.out.println("Clicking on Add To Cart button");
-        driver.findElement(By.xpath("//a[@aria-label='Add “Blue Shoes” to your cart']")).click();
+        // driver.findElement(By.xpath("//a[@aria-label='Add “Blue Shoes” to your cart']")).click();
+        storePage.clickAddToCartBtn("Blue Shoes");
 
         System.out.println("Clicking on View Cart link");
         Thread.sleep(5000);
@@ -89,19 +86,12 @@ public class _01_Sec_05_Automate_MyFirstTestCase {
                 "Assertion for Thank you Message that comes after order is placed"
         );
 
-        driver.quit();
-
     }
 
     @Test
     public void loginAndCheckoutUsingDirectBankTransfer() throws InterruptedException {
 
-        // This is manual work -> We are not going to use this
-        // We will use WebDriverManager (This will take care of the Drivers and Browser versions compatibility)
-        System.setProperty("webdriver.chrome.driver","Drivers/chromedriver");
-        WebDriver driver = new ChromeDriver();
         driver.get("https://askomdch.com/");
-        driver.manage().window().maximize();
 
         System.out.println("Clicking on Store");
         driver.findElement(By.cssSelector("#menu-item-1227 > a")).click();
@@ -161,9 +151,7 @@ public class _01_Sec_05_Automate_MyFirstTestCase {
                 "Assertion for Thank you Message that comes after order is placed"
         );
 
-        driver.quit();
-
     }
 
 
-}// _01_Sec_05_Automate_MyFirstTestCase
+}// _02_Sec_09_POM_MyFirstTestCase
