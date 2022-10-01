@@ -10,19 +10,35 @@
  # */
 /***************************************************/
 
-package com.learning.basics;
+package com.learning.Z_extras;
 
-import com.learning.pom.BaseTest;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class _02_Sec_09_POM_MyFirstTestCase extends BaseTest {
+public class _01_Sec_05_Automate_MyFirstTestCase {
+
+//    @Test
+//    public void dummyTestCase(){
+//
+//        // This is manual work -> We are not going to use this
+//        // We will use WebDriverManager (This will take care of the Drivers and Browser versions compatibility)
+//        System.setProperty("webdriver.chrome.driver","Drivers/chromedriver");
+//        WebDriver driver = new ChromeDriver();
+//        driver.get("https://askomdch.com/");
+//    }
 
     @Test
     public void guestCheckoutUsingDirectBankTransfer() throws InterruptedException {
 
+        // This is manual work -> We are not going to use this
+        // We will use WebDriverManager (This will take care of the Drivers and Browser versions compatibility)
+        System.setProperty("webdriver.chrome.driver","Drivers/chromedriver");
+        WebDriver driver = new ChromeDriver();
         driver.get("https://askomdch.com/");
+        driver.manage().window().maximize();
 
         System.out.println("Clicking on Store");
         driver.findElement(By.cssSelector("#menu-item-1227 > a")).click();
@@ -73,12 +89,19 @@ public class _02_Sec_09_POM_MyFirstTestCase extends BaseTest {
                 "Assertion for Thank you Message that comes after order is placed"
         );
 
+        driver.quit();
+
     }
 
     @Test
     public void loginAndCheckoutUsingDirectBankTransfer() throws InterruptedException {
 
+        // This is manual work -> We are not going to use this
+        // We will use WebDriverManager (This will take care of the Drivers and Browser versions compatibility)
+        System.setProperty("webdriver.chrome.driver","Drivers/chromedriver");
+        WebDriver driver = new ChromeDriver();
         driver.get("https://askomdch.com/");
+        driver.manage().window().maximize();
 
         System.out.println("Clicking on Store");
         driver.findElement(By.cssSelector("#menu-item-1227 > a")).click();
@@ -138,7 +161,9 @@ public class _02_Sec_09_POM_MyFirstTestCase extends BaseTest {
                 "Assertion for Thank you Message that comes after order is placed"
         );
 
+        driver.quit();
+
     }
 
 
-}// _02_Sec_09_POM_MyFirstTestCase
+}// _01_Sec_05_Automate_MyFirstTestCase

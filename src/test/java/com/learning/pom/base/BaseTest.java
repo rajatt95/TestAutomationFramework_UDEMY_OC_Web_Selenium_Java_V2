@@ -10,9 +10,9 @@
  # */
 /***************************************************/
 
-package com.learning.pom;
+package com.learning.pom.base;
 
-import com.learning.factory.DriverManager;
+import com.learning.pom.factory.DriverManager;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
