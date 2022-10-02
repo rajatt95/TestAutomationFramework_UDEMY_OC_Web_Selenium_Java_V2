@@ -18,12 +18,20 @@ package com.learning.pom.factory;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import java.time.Duration;
+
+
 public class DriverManager {
 
     public WebDriver initializeDriver(){
         System.setProperty("webdriver.chrome.driver","Drivers/chromedriver");
         WebDriver driver = new ChromeDriver();
         driver.manage().window().maximize();
+
+        // As long as the Driver Session is active,
+            // This wait will be applied to the Driver Session
+        // driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
+
         return driver;
     }
-}
+}// DriverManager

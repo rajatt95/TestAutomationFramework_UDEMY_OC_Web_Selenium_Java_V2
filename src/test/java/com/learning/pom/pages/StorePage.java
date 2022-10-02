@@ -41,7 +41,9 @@ public class StorePage extends BasePage {
 
     // Structural Page Object
     public StorePage enterTxtInSearchFld(String txt){
-        driver.findElement(searchFld).sendKeys(txt);
+        // driver.findElement(searchFld).sendKeys(txt);
+        waitForElementToBeVisible(searchFld).sendKeys(txt);
+
         // This is the example of Builder Pattern
             // After filling value in textBox, User is on the same Page (StorePage)
         return this;
@@ -49,13 +51,15 @@ public class StorePage extends BasePage {
 
     // Structural Page Object
     public StorePage clearSearchFld(){
-        driver.findElement(searchFld).clear();
+        // driver.findElement(searchFld).clear();
+        waitForElementToBeVisible(searchFld).clear();
         return this;
     }
 
     // Structural Page Object
     public StorePage clickSearchBtn(){
-        driver.findElement(searchBtn).click();
+        // driver.findElement(searchBtn).click();
+        waitForElementToBeClickable(searchBtn).click();
         return this;
     }
 
@@ -74,7 +78,9 @@ public class StorePage extends BasePage {
     }
 
     public String getTitle(){
-        return driver.findElement(title).getText();
+        // return driver.findElement(title).getText();
+        return waitForElementToBeVisible(title).getText();
+
     }
 
     private By getAddToCartBtnElement(String productName){
@@ -83,12 +89,17 @@ public class StorePage extends BasePage {
     }
     public StorePage clickAddToCartBtn(String productName){
         By addToCartBtn = getAddToCartBtnElement(productName);
-        driver.findElement(addToCartBtn).click();
+
+        // driver.findElement(addToCartBtn).click();
+        waitForElementToBeClickable(addToCartBtn).click();
+
         return this;
     }
 
     public CartPage clickViewCart(){
-        driver.findElement(viewCartLink).click();
+        // driver.findElement(viewCartLink).click();
+        waitForElementToBeClickable(viewCartLink).click();
+
         return new CartPage(driver);
     }
 

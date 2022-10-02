@@ -38,7 +38,8 @@ public class HomePage extends BasePage {
 //        driver.findElement(storeMenuLink).click();
 //    }
     public StorePage navigateToStoreUsingMenu(){
-        driver.findElement(storeMenuLink).click();
+        // driver.findElement(storeMenuLink).click();
+        waitForElementToBeClickable(storeMenuLink).click();
 
         // This is the example of Fluent Interface
             // After clicking on a Store Menu link, User is navigated to Store Page

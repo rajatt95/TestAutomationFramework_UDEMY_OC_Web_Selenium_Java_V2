@@ -15,20 +15,63 @@
 
 package com.learning.pom.base;
 
-import com.learning.pom.factory.DriverManager;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
+import java.util.List;
 
 public class BasePage {
 
     protected WebDriver driver;
+    protected WebDriverWait wait;
 
     public BasePage(WebDriver driver){
         this.driver = driver;
+        this.wait = new WebDriverWait(driver,Duration.ofSeconds(15));
+
+        // Examples
+//        this.waitLong = new WebDriverWait(driver,Duration.ofSeconds(25));
+//        this.waitShort = new WebDriverWait(driver,Duration.ofSeconds(25));
+
     }
 
     public void load(String endPoint){
         driver.get("https://askomdch.com/"+endPoint);
     }
+
+    // Re-Usable method to handle Overlays
+    public void waitForOverlaysToDisappear(By overlay){
+        List<WebElement> overlays = driver.findElements(overlay);
+        System.out.println("OVERLAYS SIZE: "+overlays.size());
+        if(overlays.size() > 0){
+
+            // Explicit Wait
+//            new WebDriverWait(driver, Duration.ofSeconds(15)).until(
+//                    ExpectedConditions.invisibilityOfAllElements(overlays)
+//            );
+            wait.until(
+                    ExpectedConditions.invisibilityOfAllElements(overlays)
+            );
+            System.out.println("OVERLAY INVISIBLE");
+        }else {
+            System.out.println("OVERLAY NOT FOUND");
+        }
+    }
+
+    public WebElement waitForElementToBeVisible(By element){
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(element));
+    }
+
+    public WebElement waitForElementToBeClickable(By element){
+        return wait.until(ExpectedConditions.elementToBeClickable(element));
+    }
 }// BasePage
+
+
+
+
+

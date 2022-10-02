@@ -18,6 +18,7 @@ package com.learning.pom.pages;
 import com.learning.pom.base.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class CartPage extends BasePage {
 
@@ -29,14 +30,19 @@ public class CartPage extends BasePage {
     private final By checkoutBtn = By.xpath("//a[normalize-space()='Proceed to checkout']");
 
 
-    public String getProductName(){
-        return driver.findElement(productName).getText();
+    public String getProductName() {
+        // return driver.findElement(productName).getText();
+        // return wait.until(ExpectedConditions.visibilityOfElementLocated(productName)).getText();
+        return waitForElementToBeVisible(productName).getText();
     }
 
     public CheckoutPage checkout(){
-        driver.findElement(checkoutBtn).click();
+//        wait.until(ExpectedConditions.elementToBeClickable(checkoutBtn));
+//        driver.findElement(checkoutBtn).click();
+
+        // wait.until(ExpectedConditions.elementToBeClickable(checkoutBtn)).click();
+        waitForElementToBeClickable(checkoutBtn).click();
         return new CheckoutPage(driver);
     }
-
 
 }// CartPage
