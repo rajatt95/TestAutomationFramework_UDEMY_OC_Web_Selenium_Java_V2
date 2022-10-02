@@ -18,6 +18,7 @@ package com.learning.pom.pages;
 import com.learning.pom.base.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class HomePage extends BasePage {
 
@@ -31,6 +32,15 @@ public class HomePage extends BasePage {
 
     public HomePage load(){
         load("");
+
+        // Explicit Wait - Implement more Strategies
+        // Title
+        wait.until(ExpectedConditions.titleIs("AskOmDch – Become a Selenium automation expert!"));
+        wait.until(ExpectedConditions.titleContains("OmDch"));
+
+        // URL
+        wait.until(ExpectedConditions.urlContains("askomdch.com"));
+
         return this;
     }
 
