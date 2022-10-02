@@ -52,6 +52,9 @@ public class CheckoutPage extends BasePage {
     private final By countryDropDown = By.id("billing_country");
     private final By stateDropDown = By.id("billing_state");
 
+    private final By directBankTransferRadioBtn = By.id("payment_method_bacs");
+
+
     public CheckoutPage enterFirstName(String firstName){
 //      driver.findElement(firstNameFld).clear();
 //      driver.findElement(firstNameFld).sendKeys(firstName);
@@ -160,13 +163,6 @@ public class CheckoutPage extends BasePage {
         return this;
     }
 
-    public CheckoutPage login(User user) {
-        enterUsername(user.getEmail());
-        enterPassword(user.getPassword());
-        clickLoginBtn();
-        return this;
-    }
-
     // Functional Page Object
     public CheckoutPage setBillingAddress(BillingAddress billingAddress) {
         return enterFirstName(billingAddress.getFirstName()).
@@ -177,6 +173,21 @@ public class CheckoutPage extends BasePage {
                 selectState(billingAddress.getState()).
                 enterPostCode(billingAddress.getPostalCode()).
                 enterEmail(billingAddress.getEmail());
+    }
+
+    public CheckoutPage login(User user) {
+        enterUsername(user.getEmail());
+        enterPassword(user.getPassword());
+        clickLoginBtn();
+        return this;
+    }
+
+    public CheckoutPage selectDirectBankTransfer(){
+        WebElement webElement = waitForElementToBeVisible(directBankTransferRadioBtn);
+        if(!webElement.isSelected()){
+            webElement.click();
+        }
+        return this;
     }
 
 }// CheckoutPage
