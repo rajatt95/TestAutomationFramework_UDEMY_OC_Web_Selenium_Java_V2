@@ -6,13 +6,18 @@
  # *
  # * Course: Selenium Java Test Framework & Best Practices - Masterclass (https://www.udemy.com/course/selenium-java-test-framework/)
  # * Tutor: Omprakash Chavan (https://www.udemy.com/user/omprakash-chavan/)
- # * Learnings from Other Courses - https://github.com/stars/rajatt95/lists/udemy-omprakash-chavan
+
+ # * Code Repository: https://github.com/rajatt95/TestAutomationFramework_UDEMY_OC_Web_Selenium_Java_V2
+ # * Document(s): https://github.com/rajatt95/Documents
+ # * Learnings from Tutor other course(s): - https://github.com/stars/rajatt95/lists/udemy-omprakash-chavan
  # */
 /***************************************************/
 
 package com.learning.pom.pages;
 
 import com.learning.pom.base.BasePage;
+import com.learning.pom.objects.BillingAddress;
+import com.learning.pom.objects.User;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -115,6 +120,23 @@ public class CheckoutPage extends BasePage {
         enterPassword(password);
         clickLoginBtn();
         return this;
+    }
+
+    public CheckoutPage login(User user) {
+        enterUsername(user.getEmail());
+        enterPassword(user.getPassword());
+        clickLoginBtn();
+        return this;
+    }
+
+    // Functional Page Object
+    public CheckoutPage setBillingAddress(BillingAddress billingAddress) {
+        return enterFirstName(billingAddress.getFirstName()).
+                enterLastName(billingAddress.getLastName()).
+                enterAddressLineOne(billingAddress.getAddressLineOne()).
+                enterCity(billingAddress.getCity()).
+                enterPostCode(billingAddress.getPostalCode()).
+                enterEmail(billingAddress.getEmail());
     }
 
 }// CheckoutPage

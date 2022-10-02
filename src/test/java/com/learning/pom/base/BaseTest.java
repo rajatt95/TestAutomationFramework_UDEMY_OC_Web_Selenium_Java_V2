@@ -6,7 +6,10 @@
  # *
  # * Course: Selenium Java Test Framework & Best Practices - Masterclass (https://www.udemy.com/course/selenium-java-test-framework/)
  # * Tutor: Omprakash Chavan (https://www.udemy.com/user/omprakash-chavan/)
- # * Learnings from Other Courses - https://github.com/stars/rajatt95/lists/udemy-omprakash-chavan
+
+ # * Code Repository: https://github.com/rajatt95/TestAutomationFramework_UDEMY_OC_Web_Selenium_Java_V2
+ # * Document(s): https://github.com/rajatt95/Documents
+ # * Learnings from Tutor other course(s): - https://github.com/stars/rajatt95/lists/udemy-omprakash-chavan
  # */
 /***************************************************/
 

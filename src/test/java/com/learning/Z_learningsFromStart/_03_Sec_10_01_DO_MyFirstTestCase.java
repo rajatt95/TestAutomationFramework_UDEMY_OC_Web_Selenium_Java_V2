@@ -13,16 +13,16 @@
 package com.learning.Z_learningsFromStart;
 
 import com.learning.pom.base.BaseTest;
+import com.learning.pom.objects.BillingAddress;
 import com.learning.pom.pages.CartPage;
 import com.learning.pom.pages.CheckoutPage;
 import com.learning.pom.pages.HomePage;
 import com.learning.pom.pages.StorePage;
-import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-// Structural Page object - Billing Address
-public class _02_Sec_09_05_POM_MyFirstTestCase extends BaseTest {
+// Java POJO introduced for Billing Address
+public class _03_Sec_10_01_DO_MyFirstTestCase extends BaseTest {
 
     @Test
     public void guestCheckoutUsingDirectBankTransfer() throws InterruptedException {
@@ -44,13 +44,26 @@ public class _02_Sec_09_05_POM_MyFirstTestCase extends BaseTest {
         CheckoutPage checkoutPage = cartPage.checkout();
 
         // Structural Page object
+//        checkoutPage.
+//                enterFirstName("demo").
+//                enterLastName("user").
+//                enterAddressLineOne("San Francisco").
+//                enterCity("San Francisco").
+//                enterPostCode("94188").
+//                enterEmail("dummyUser875@gmail.com").
+//                placeOrder();
+
+        BillingAddress billingAddress = new BillingAddress();
+        billingAddress.setFirstName("demo");
+        billingAddress.setLastName("user");
+        billingAddress.setAddressLineOne("San Francisco");
+        billingAddress.setCity("San Francisco");
+        billingAddress.setPostalCode("94188");
+        billingAddress.setEmail("dummyUser875@gmail.com");
+
+        // Functional Page Object
         checkoutPage.
-                enterFirstName("demo").
-                enterLastName("user").
-                enterAddressLineOne("San Francisco").
-                enterCity("San Francisco").
-                enterPostCode("94188").
-                enterEmail("dummyUser875@gmail.com").
+                setBillingAddress(billingAddress).
                 placeOrder();
 
         Thread.sleep(5000);
@@ -101,4 +114,4 @@ public class _02_Sec_09_05_POM_MyFirstTestCase extends BaseTest {
     }
 
 
-}// _02_Sec_09_05_POM_MyFirstTestCase
+}// _03_Sec_10_01_DO_MyFirstTestCase
