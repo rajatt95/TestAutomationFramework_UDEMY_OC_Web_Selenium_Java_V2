@@ -1,8 +1,10 @@
 {
   "firstName": "Demo",
   "lastName": "User",
-  "addressLineOne": "San Francisco",
-  "city": "San Francisco",
-  "postalCode": "94188",
+  "country": "India",
+  "addressLineOne": "Pune",
+  "city": "Pune",
+  "state": "Maharashtra",
+  "postalCode": "411001",
   "email": "dummyUser875@gmail.com"
 }

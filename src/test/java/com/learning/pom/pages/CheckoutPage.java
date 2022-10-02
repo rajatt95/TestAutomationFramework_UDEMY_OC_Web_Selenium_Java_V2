@@ -21,6 +21,7 @@ import com.learning.pom.objects.User;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 
 public class CheckoutPage extends BasePage {
 
@@ -48,7 +49,8 @@ public class CheckoutPage extends BasePage {
     private final By loginBtn = By.xpath("//button[@name='login']");
 
     private final By overlay = By.cssSelector(".blockUI.blockOverlay");
-
+    private final By countryDropDown = By.id("billing_country");
+    private final By stateDropDown = By.id("billing_state");
 
     public CheckoutPage enterFirstName(String firstName){
 //      driver.findElement(firstNameFld).clear();
@@ -66,20 +68,25 @@ public class CheckoutPage extends BasePage {
     }
 
     public CheckoutPage enterLastName(String lastName){
-//        driver.findElement(lastNameFld).clear();
-//        driver.findElement(lastNameFld).sendKeys(lastName);
-
         WebElement webElement = waitForElementToBeVisible(lastNameFld);
         webElement.clear();
         webElement.sendKeys(lastName);
+        return this;
+    }
 
+    public CheckoutPage selectCountry(String countryName){
+        Select select = new Select(driver.findElement(countryDropDown));
+        select.selectByVisibleText(countryName);
+        return this;
+    }
+
+    public CheckoutPage selectState(String stateName){
+        Select select = new Select(driver.findElement(stateDropDown));
+        select.selectByVisibleText(stateName);
         return this;
     }
 
     public CheckoutPage enterAddressLineOne(String addressLineOne){
-//        driver.findElement(addressLineOneFld).clear();
-//        driver.findElement(addressLineOneFld).sendKeys(addressLineOne);
-
         WebElement webElement = waitForElementToBeVisible(addressLineOneFld);
         webElement.clear();
         webElement.sendKeys(addressLineOne);
@@ -88,9 +95,6 @@ public class CheckoutPage extends BasePage {
     }
 
     public CheckoutPage enterCity(String city){
-//        driver.findElement(billingCityFld).clear();
-//        driver.findElement(billingCityFld).sendKeys(city);
-
         WebElement webElement = waitForElementToBeVisible(billingCityFld);
         webElement.clear();
         webElement.sendKeys(city);
@@ -98,9 +102,6 @@ public class CheckoutPage extends BasePage {
     }
 
     public CheckoutPage enterPostCode(String postCode){
-//        driver.findElement(billingPostCodeFld).clear();
-//        driver.findElement(billingPostCodeFld).sendKeys(postCode);
-
         WebElement webElement = waitForElementToBeVisible(billingPostCodeFld);
         webElement.clear();
         webElement.sendKeys(postCode);
@@ -108,9 +109,6 @@ public class CheckoutPage extends BasePage {
     }
 
     public CheckoutPage enterEmail(String email){
-//        driver.findElement(billingEmailFld).clear();
-//        driver.findElement(billingEmailFld).sendKeys(email);
-
         WebElement webElement = waitForElementToBeVisible(billingEmailFld);
         webElement.clear();
         webElement.sendKeys(email);
@@ -118,13 +116,6 @@ public class CheckoutPage extends BasePage {
     }
 
     public CheckoutPage placeOrder(){
-//        List<WebElement> overlays = driver.findElements(overlay);
-//        if(overlays.size() > 0){
-//            // Explicit Wait
-//            new WebDriverWait(driver, Duration.ofSeconds(15)).until(
-//                    ExpectedConditions.invisibilityOfAllElements(overlays)
-//            );
-//        }
         waitForOverlaysToDisappear(overlay);
 
         // driver.findElement(placeOrderBtn).click();
@@ -144,9 +135,6 @@ public class CheckoutPage extends BasePage {
     }
 
     public CheckoutPage enterUsername(String username) {
-//        driver.findElement(usernameFld).clear();
-//        driver.findElement(usernameFld).sendKeys(username);
-
         WebElement webElement = waitForElementToBeVisible(usernameFld);
         webElement.clear();
         webElement.sendKeys(username);
@@ -154,9 +142,6 @@ public class CheckoutPage extends BasePage {
     }
 
     public CheckoutPage enterPassword(String password) {
-//        driver.findElement(passwordFld).clear();
-//        driver.findElement(passwordFld).sendKeys(password);
-
         WebElement webElement = waitForElementToBeVisible(passwordFld);
         webElement.clear();
         webElement.sendKeys(password);
@@ -164,7 +149,6 @@ public class CheckoutPage extends BasePage {
     }
 
     public CheckoutPage clickLoginBtn() {
-        // driver.findElement(loginBtn).click();
         waitForElementToBeClickable(loginBtn).click();
         return this;
     }
@@ -187,8 +171,10 @@ public class CheckoutPage extends BasePage {
     public CheckoutPage setBillingAddress(BillingAddress billingAddress) {
         return enterFirstName(billingAddress.getFirstName()).
                 enterLastName(billingAddress.getLastName()).
+                selectCountry(billingAddress.getCountry()).
                 enterAddressLineOne(billingAddress.getAddressLineOne()).
                 enterCity(billingAddress.getCity()).
+                selectState(billingAddress.getState()).
                 enterPostCode(billingAddress.getPostalCode()).
                 enterEmail(billingAddress.getEmail());
     }
