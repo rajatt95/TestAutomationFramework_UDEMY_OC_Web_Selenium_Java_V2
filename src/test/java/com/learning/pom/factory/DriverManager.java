@@ -15,16 +15,19 @@
 
 package com.learning.pom.factory;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-
-import java.time.Duration;
 
 
 public class DriverManager {
 
     public WebDriver initializeDriver(){
-        System.setProperty("webdriver.chrome.driver","Drivers/chromedriver");
+        // System.setProperty("webdriver.chrome.driver","Drivers/chromedriver");
+        // System.setProperty("webdriver.chrome.driver","Drivers/chromedriver_incompatible");
+        WebDriverManager.chromedriver().setup();
+        // WebDriverManager.chromedriver().cachePath("Drivers/Downloaded_By_WDM").setup();
+
         WebDriver driver = new ChromeDriver();
         driver.manage().window().maximize();
 
