@@ -18,17 +18,31 @@ package com.learning.pom.pages;
 import com.learning.pom.base.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.CacheLookup;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.How;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class CartPage extends BasePage {
 
     public CartPage(WebDriver driver){
         super(driver);
+        // PageFactory is a class that has a method initElements()
+            // initElements() method is used to initialize the Page Elements.
+        PageFactory.initElements(driver, this);
     }
 
-    private final By productName = By.cssSelector("td[class='product-name'] a");
-    private final By checkoutBtn = By.xpath("//a[normalize-space()='Proceed to checkout']");
+//    private final By productName = By.cssSelector("td[class='product-name'] a");
+//    private final By checkoutBtn = By.xpath("//a[normalize-space()='Proceed to checkout']");
 
+    @FindBy(how = How.CSS, using = "td[class='product-name'] a")
+    private WebElement productName;
+
+    @FindBy(xpath = "//a[normalize-space()='Proceed to checkout']")
+    @CacheLookup
+    private WebElement checkoutBtn;
 
     public String getProductName() {
         // return driver.findElement(productName).getText();

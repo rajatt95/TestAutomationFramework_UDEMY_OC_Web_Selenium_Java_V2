@@ -9,8 +9,16 @@
 
  # * Code Repository: https://github.com/rajatt95/TestAutomationFramework_UDEMY_OC_Web_Selenium_Java_V2
  # * Document(s): https://github.com/rajatt95/Documents
- # * Learnings from Tutor other course(s): - https://github.com/stars/rajatt95/lists/udemy-omprakash-chavan
+
+ # * Learnings from Tutor (Code Repository):
+ # *    This course
+ # *        https://github.com/stars/rajatt95/lists/udemy-oc-selenium
+ # *    Other course(s):
+ # *        https://github.com/stars/rajatt95/lists/udemy-omprakash-chavan
  # */
+
+
+
 /***************************************************/
 
 package com.learning.pom.base;
@@ -66,7 +74,15 @@ public class BasePage {
         return wait.until(ExpectedConditions.visibilityOfElementLocated(element));
     }
 
+    public WebElement waitForElementToBeVisible(WebElement element){
+        return wait.until(ExpectedConditions.visibilityOf(element));
+    }
+
+
     public WebElement waitForElementToBeClickable(By element){
+        return wait.until(ExpectedConditions.elementToBeClickable(element));
+    }
+    public WebElement waitForElementToBeClickable(WebElement element){
         return wait.until(ExpectedConditions.elementToBeClickable(element));
     }
 }// BasePage
