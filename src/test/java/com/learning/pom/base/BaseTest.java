@@ -23,7 +23,20 @@ import org.testng.annotations.Parameters;
 
 public class BaseTest {
 
-    protected WebDriver driver;
+    // protected WebDriver driver;
+    protected ThreadLocal<WebDriver> driver = new ThreadLocal<>();
+
+    // Sets the current thread's copy of this thread-local variable to the specified value.
+        // Most subclasses will have no need to override this method, relying solely on the initialValue method to set the values of thread-locals
+    private void setDriver(WebDriver driver){
+        this.driver.set(driver);
+    }
+    // Returns the value in the current thread's copy of this thread-local variable.
+        // If the variable has no value for the current thread, it is first initialized to the value returned by an invocation of the initialValue method.
+    protected WebDriver getDriver(){
+        return this.driver.get();
+    }
+
 
 //    @BeforeMethod
 //    public void startDriver(){
@@ -34,16 +47,23 @@ public class BaseTest {
     @Parameters("browser_testng")
     @BeforeMethod
     public void startDriver(String browser_testng){
-        driver = new DriverManager().initializeDriver(browser_testng);
+
+        // Browser passed from TestNG.xml file will be taken by default
+        // If Browser value is not passed from command line
+        String browser = System.getProperty("browser",browser_testng);
+
+        // driver = new DriverManager().initializeDriver(browser_testng);
+        setDriver(new DriverManager().initializeDriver(browser));
+        System.out.println("CURRENT THREAD (Thread.currentThread().getId()): "+Thread.currentThread().getId());
+        System.out.println("DRIVER (getDriver()): "+getDriver());
     }
-
-
 
     @AfterMethod
     public void quitDriver(){
-        driver.quit();
-
+        // driver.quit();
+        System.out.println("CURRENT THREAD (Thread.currentThread().getId()): "+Thread.currentThread().getId());
+        System.out.println("DRIVER (getDriver()): "+getDriver());
+        getDriver().quit();
     }
 
-
-}
+}// BaseTest

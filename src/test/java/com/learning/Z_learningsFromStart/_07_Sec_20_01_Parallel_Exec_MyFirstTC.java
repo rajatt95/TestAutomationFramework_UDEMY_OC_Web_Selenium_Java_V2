@@ -1,4 +1,4 @@
-package com.learning.pom.tests; /**
+/**
  # * @author Rajat Verma
  # * https://www.linkedin.com/in/rajat-v-3b0685128/
  # * https://github.com/rajatt95
@@ -13,6 +13,7 @@ package com.learning.pom.tests; /**
  # */
 /***************************************************/
 
+package com.learning.Z_learningsFromStart;
 
 import com.learning.pom.base.BaseTest;
 import com.learning.pom.objects.BillingAddress;
@@ -27,18 +28,19 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 
-public class MyFirstTestCase extends BaseTest {
+// Parallel Execution implemented using ThreadLocal
+public class _07_Sec_20_01_Parallel_Exec_MyFirstTC extends BaseTest {
 
     @Test
     public void guestCheckoutUsingDirectBankTransfer() {
 
         String searchFor = "Blue";
         //      StorePage storePage = new HomePage(driver).
-        StorePage storePage = new HomePage(getDriver()).
+                StorePage storePage = new HomePage(getDriver()).
                 load().
                 navigateToStoreUsingMenu().
                 // searchProduct("Blue");
-                        searchProduct(searchFor);
+                 searchProduct(searchFor);
 
 //        Assert.assertEquals(storePage.getTitle(), "Search results: “"+searchFor+"”",
 //                "Assertion for Heading that comes after click on Search button");
@@ -88,7 +90,7 @@ public class MyFirstTestCase extends BaseTest {
                 load().
                 navigateToStoreUsingMenu().
                 // searchProduct("Blue");
-                        searchProduct(searchFor);
+                 searchProduct(searchFor);
 
 //        Assert.assertEquals(storePage.getTitle(), "Search results: “"+searchFor+"”",
 //                "Assertion for Heading that comes after click on Search button");
@@ -136,4 +138,4 @@ public class MyFirstTestCase extends BaseTest {
 
     }
 
-}// MyFirstTestCase
+}// _07_Sec_20_01_Parallel_Exec_MyFirstTC

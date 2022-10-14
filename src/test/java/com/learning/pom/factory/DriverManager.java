@@ -24,8 +24,8 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class DriverManager {
 
-//    public WebDriver initializeDriver(String browser_testng){
-    public WebDriver initializeDriver(String browser_testng){
+//    public WebDriver initializeDriver(String browser){
+    public WebDriver initializeDriver(String browser){
 
         // System.setProperty("webdriver.chrome.driver","Drivers/chromedriver");
         // System.setProperty("webdriver.chrome.driver","Drivers/chromedriver_incompatible");
@@ -61,11 +61,6 @@ public class DriverManager {
             // mvn clean test
                 // We can execute the test cases individually as well
         // String browser = System.getProperty("browser","CHROME");
-
-        // Browser passed from TestNG.xml file will be taken by default
-          // If Browser value is not passed from command line
-        String browser = System.getProperty("browser",browser_testng);
-
 
         switch (BrowserType.valueOf(browser.toUpperCase())){
             case CHROME:
