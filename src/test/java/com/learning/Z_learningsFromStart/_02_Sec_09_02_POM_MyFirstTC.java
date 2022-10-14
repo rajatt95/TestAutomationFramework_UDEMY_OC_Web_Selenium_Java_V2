@@ -13,40 +13,63 @@
 package com.learning.Z_learningsFromStart;
 
 import com.learning.pom.base.BaseTest;
-import com.learning.pom.pages.CartPage;
-import com.learning.pom.pages.CheckoutPage;
 import com.learning.pom.pages.HomePage;
 import com.learning.pom.pages.StorePage;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class _02_Sec_09_04_POM_MyFirstTestCase extends BaseTest {
+public class _02_Sec_09_02_POM_MyFirstTC extends BaseTest {
 
     @Test
     public void guestCheckoutUsingDirectBankTransfer() throws InterruptedException {
 
         driver.get("https://askomdch.com/");
 
+        System.out.println("Clicking on Store");
+        // driver.findElement(By.cssSelector("#menu-item-1227 > a")).click();
         HomePage homePage = new HomePage(driver);
+
+        // Example of Fluent Interface (No need to explicitly create object of StorePage class)
         StorePage storePage = homePage.navigateToStoreUsingMenu();
-        storePage.searchProduct("Blue");
+
+        System.out.println("Filling 'Blue' in search box");
+        // driver.findElement(By.xpath("//input[@id='woocommerce-product-search-field-0']")).sendKeys("Blue");
+        storePage.enterTxtInSearchFld("Blue");
+
+        System.out.println("Clicking on Search button");
+        // driver.findElement(By.xpath("//button[normalize-space()='Search']")).click();
+        storePage.clickSearchBtn();
+
+        System.out.println("Assertion for Heading that comes after click on Search button");
+//        Assert.assertEquals(
+//                driver.findElement(By.cssSelector(".woocommerce-products-header__title.page-title")).getText(),
+//                "Search results: “Blue”",
+//                "Assertion for Heading that comes after click on Search button"
+//        );
         Assert.assertEquals(
                 storePage.getTitle(),
                 "Search results: “Blue”",
                 "Assertion for Heading that comes after click on Search button"
         );
 
+        System.out.println("Clicking on Add To Cart button");
+        // driver.findElement(By.xpath("//a[@aria-label='Add “Blue Shoes” to your cart']")).click();
         storePage.clickAddToCartBtn("Blue Shoes");
-        Thread.sleep(5000);
-        CartPage cartPage = storePage.clickViewCart();
 
+        System.out.println("Clicking on View Cart link");
+        Thread.sleep(5000);
+        driver.findElement(By.cssSelector("a[title='View cart']")).click();
+
+        System.out.println("Assertion for Product Name that comes after click on View Cart link");
         Assert.assertEquals(
-                cartPage.getProductName(),
+                driver.findElement(By.cssSelector("td[class='product-name'] a")).getText(),
                 "Blue Shoes",
                 "Assertion for Product Name that comes after click on View Cart link"
         );
-        CheckoutPage checkoutPage = cartPage.checkout();
+
+        System.out.println("Clicking on Proceed to Checkout button");
+        driver.findElement(By.xpath("//a[normalize-space()='Proceed to checkout']")).click();
 
         driver.findElement(By.id("billing_first_name")).sendKeys("demo");
         driver.findElement(By.id("billing_last_name")).sendKeys("user");
@@ -131,4 +154,4 @@ public class _02_Sec_09_04_POM_MyFirstTestCase extends BaseTest {
     }
 
 
-}// _02_Sec_09_POM_MyFirstTestCase
+}// _02_Sec_09_02_POM_MyFirstTC

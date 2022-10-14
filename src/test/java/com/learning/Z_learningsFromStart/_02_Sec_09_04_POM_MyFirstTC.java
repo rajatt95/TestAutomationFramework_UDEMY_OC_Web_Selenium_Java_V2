@@ -13,50 +13,40 @@
 package com.learning.Z_learningsFromStart;
 
 import com.learning.pom.base.BaseTest;
+import com.learning.pom.pages.CartPage;
+import com.learning.pom.pages.CheckoutPage;
+import com.learning.pom.pages.HomePage;
+import com.learning.pom.pages.StorePage;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class _02_Sec_09_01_POM_MyFirstTestCase extends BaseTest {
+public class _02_Sec_09_04_POM_MyFirstTC extends BaseTest {
 
     @Test
     public void guestCheckoutUsingDirectBankTransfer() throws InterruptedException {
 
         driver.get("https://askomdch.com/");
 
-        System.out.println("Clicking on Store");
-        driver.findElement(By.cssSelector("#menu-item-1227 > a")).click();
-
-        System.out.println("Filling 'Blue' in search box");
-        driver.findElement(By.xpath("//input[@id='woocommerce-product-search-field-0']")).sendKeys("Blue");
-
-        System.out.println("Clicking on Search button");
-        driver.findElement(By.xpath("//button[normalize-space()='Search']")).click();
-
-
-        System.out.println("Assertion for Heading that comes after click on Search button");
+        HomePage homePage = new HomePage(driver);
+        StorePage storePage = homePage.navigateToStoreUsingMenu();
+        storePage.searchProduct("Blue");
         Assert.assertEquals(
-                driver.findElement(By.cssSelector(".woocommerce-products-header__title.page-title")).getText(),
+                storePage.getTitle(),
                 "Search results: “Blue”",
                 "Assertion for Heading that comes after click on Search button"
         );
 
-        System.out.println("Clicking on Add To Cart button");
-        driver.findElement(By.xpath("//a[@aria-label='Add “Blue Shoes” to your cart']")).click();
-
-        System.out.println("Clicking on View Cart link");
+        storePage.clickAddToCartBtn("Blue Shoes");
         Thread.sleep(5000);
-        driver.findElement(By.cssSelector("a[title='View cart']")).click();
+        CartPage cartPage = storePage.clickViewCart();
 
-        System.out.println("Assertion for Product Name that comes after click on View Cart link");
         Assert.assertEquals(
-                driver.findElement(By.cssSelector("td[class='product-name'] a")).getText(),
+                cartPage.getProductName(),
                 "Blue Shoes",
                 "Assertion for Product Name that comes after click on View Cart link"
         );
-
-        System.out.println("Clicking on Proceed to Checkout button");
-        driver.findElement(By.xpath("//a[normalize-space()='Proceed to checkout']")).click();
+        CheckoutPage checkoutPage = cartPage.checkout();
 
         driver.findElement(By.id("billing_first_name")).sendKeys("demo");
         driver.findElement(By.id("billing_last_name")).sendKeys("user");
@@ -141,4 +131,4 @@ public class _02_Sec_09_01_POM_MyFirstTestCase extends BaseTest {
     }
 
 
-}// _02_Sec_09_POM_MyFirstTestCase
+}// _02_Sec_09_04_POM_MyFirstTC

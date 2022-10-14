@@ -12,7 +12,10 @@
         <!-- 11 is pointing towards the Java JDK version. Make sure that it is pointing to the right version -->
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
-    </properties>
+
+        <!-- UTF-8 - Setting the Encoding standards -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+     </properties>
 
     <dependencies>
         <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->

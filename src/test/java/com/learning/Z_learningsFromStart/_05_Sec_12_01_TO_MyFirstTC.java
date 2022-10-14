@@ -17,6 +17,8 @@ package com.learning.Z_learningsFromStart;
 
 import com.learning.pom.base.BaseTest;
 import com.learning.pom.objects.BillingAddress;
+import com.learning.pom.objects.Product;
+import com.learning.pom.objects.User;
 import com.learning.pom.pages.CartPage;
 import com.learning.pom.pages.CheckoutPage;
 import com.learning.pom.pages.HomePage;
@@ -25,49 +27,50 @@ import com.learning.pom.utils.JacksonUtils;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import java.io.InputStream;
 
-// Reusable Method to De-serialize JSON (Generic Method)
-public class _03_Sec_10_05_DO_MyFirstTestCase extends BaseTest {
+// Remove Application State Dependency
+public class _05_Sec_12_01_TO_MyFirstTC extends BaseTest {
 
     @Test
-    public void guestCheckoutUsingDirectBankTransfer() throws InterruptedException {
+    public void guestCheckoutUsingDirectBankTransfer() {
 
+        String searchFor = "Blue";
         StorePage storePage = new HomePage(driver).
                 load().
                 navigateToStoreUsingMenu().
-                searchProduct("Blue");
+                // searchProduct("Blue");
+                 searchProduct(searchFor);
 
-        Assert.assertEquals(storePage.getTitle(), "Search results: “Blue”",
+        Assert.assertEquals(storePage.getTitle(), "Search results: “"+searchFor+"”",
                 "Assertion for Heading that comes after click on Search button");
 
-        storePage.clickAddToCartBtn("Blue Shoes");
-        Thread.sleep(5000);
+        // Products - Create JSON Array
+        Product product = new Product(1215);
+        storePage.clickAddToCartBtn(product.getName());
+        // Thread.sleep(5000);
         CartPage cartPage = storePage.clickViewCart();
 
-        Assert.assertEquals(cartPage.getProductName(), "Blue Shoes",
+        Assert.assertEquals(cartPage.getProductName(), product.getName(),
                 "Assertion for Product Name that comes after click on View Cart link");
-        CheckoutPage checkoutPage = cartPage.checkout();
 
-//        // Billing Address: De-serialize JSON
-//        BillingAddress billingAddress = new BillingAddress();
-//
-//        // InputStream -> This will automatically take the file path (src/test/resources)
-//            // Maven will resolve this (We don't need absolute/relative path)
-//        InputStream is = getClass().getClassLoader().getResourceAsStream("myBillingAddress.json");
-//        billingAddress = JacksonUtils.deSerializationJSON(is, billingAddress);
+        CheckoutPage checkoutPage = cartPage.checkout();
 
         // Reusable Method to De-serialize JSON (Generic Method)
         BillingAddress billingAddress = JacksonUtils.deSerializationJSON(
                 "myBillingAddress.json",BillingAddress.class);
 
-
         // Functional Page Object
+//        checkoutPage.
+//                setBillingAddress(billingAddress).
+//                placeOrder();
+
+        // Remove Application State Dependency
         checkoutPage.
                 setBillingAddress(billingAddress).
+                selectDirectBankTransfer().
                 placeOrder();
 
-        Thread.sleep(5000);
+        // Thread.sleep(5000);
 
         Assert.assertEquals(checkoutPage.getNotice(), "Thank you. Your order has been received.",
                 "Assertion for Thank you Message that comes after order is placed");
@@ -75,44 +78,56 @@ public class _03_Sec_10_05_DO_MyFirstTestCase extends BaseTest {
     }
 
     @Test
-    public void loginAndCheckoutUsingDirectBankTransfer() throws InterruptedException {
+    public void loginAndCheckoutUsingDirectBankTransfer() {
 
-
+        String searchFor = "Blue";
         StorePage storePage = new HomePage(driver).
                 load().
                 navigateToStoreUsingMenu().
-                searchProduct("Blue");
+                // searchProduct("Blue");
+                 searchProduct(searchFor);
 
-        Assert.assertEquals(storePage.getTitle(), "Search results: “Blue”",
+        Assert.assertEquals(storePage.getTitle(), "Search results: “"+searchFor+"”",
                 "Assertion for Heading that comes after click on Search button");
 
-        storePage.clickAddToCartBtn("Blue Shoes");
-        Thread.sleep(5000);
+        // Products - Create JSON Array
+        Product product = new Product(1215);
+        storePage.clickAddToCartBtn(product.getName());
+        // Thread.sleep(5000);
         CartPage cartPage = storePage.clickViewCart();
 
-        Assert.assertEquals(cartPage.getProductName(), "Blue Shoes",
+        Assert.assertEquals(cartPage.getProductName(), product.getName(),
                 "Assertion for Product Name that comes after click on View Cart link");
 
         CheckoutPage checkoutPage = cartPage.checkout();
         checkoutPage.clickHereToLoginLink();
-        Thread.sleep(3000);
+        // Thread.sleep(3000);
 
+        // Reusable Method to De-serialize JSON (Generic Method)
+        BillingAddress billingAddress = JacksonUtils.deSerializationJSON(
+                "myBillingAddress.json",BillingAddress.class);
+
+        // User - Create Data Object [With Assignment]
+        User user = new User("dummyUser875@gmail.com","HidummyUser");
+
+        // Functional Page Object
+//        checkoutPage.
+//                login(user).
+//                setBillingAddress(billingAddress).
+//                placeOrder();
+
+        // Remove Application State Dependency
         checkoutPage.
-                login("dummyUser875@gmail.com","HidummyUser").
-                enterFirstName("demo").
-                enterLastName("user").
-                enterAddressLineOne("San Francisco").
-                enterCity("San Francisco").
-                enterPostCode("94188").
-                enterEmail("dummyUser875@gmail.com").
+                login(user).
+                setBillingAddress(billingAddress).
+                selectDirectBankTransfer().
                 placeOrder();
 
-        Thread.sleep(5000);
+        // Thread.sleep(5000);
 
         Assert.assertEquals(checkoutPage.getNotice(), "Thank you. Your order has been received.",
                 "Assertion for Thank you Message that comes after order is placed");
 
     }
 
-
-}// _03_Sec_10_01_DO_MyFirstTestCase
+}// _05_Sec_12_01_TO_MyFirstTC

@@ -30,7 +30,7 @@ import org.testng.annotations.Test;
 
 // User - Create Data Object [With Assignment]
     // Update Test Case #2
-public class _03_Sec_10_07_DO_MyFirstTestCase extends BaseTest {
+public class _03_Sec_10_07_DO_MyFirstTC extends BaseTest {
 
     @Test
     public void guestCheckoutUsingDirectBankTransfer() throws InterruptedException {
@@ -118,4 +118,4 @@ public class _03_Sec_10_07_DO_MyFirstTestCase extends BaseTest {
 
     }
 
-}// _03_Sec_10_01_DO_MyFirstTestCase
+}// _03_Sec_10_07_DO_MyFirstTC

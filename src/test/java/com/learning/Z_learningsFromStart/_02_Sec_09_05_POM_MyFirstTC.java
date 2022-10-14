@@ -6,17 +6,13 @@
  # *
  # * Course: Selenium Java Test Framework & Best Practices - Masterclass (https://www.udemy.com/course/selenium-java-test-framework/)
  # * Tutor: Omprakash Chavan (https://www.udemy.com/user/omprakash-chavan/)
-
- # * Code Repository: https://github.com/rajatt95/TestAutomationFramework_UDEMY_OC_Web_Selenium_Java_V2
- # * Document(s): https://github.com/rajatt95/Documents
- # * Learnings from Tutor other course(s): - https://github.com/stars/rajatt95/lists/udemy-omprakash-chavan
+ # * Learnings from Other Courses - https://github.com/stars/rajatt95/lists/udemy-omprakash-chavan
  # */
 /***************************************************/
 
 package com.learning.Z_learningsFromStart;
 
 import com.learning.pom.base.BaseTest;
-import com.learning.pom.objects.BillingAddress;
 import com.learning.pom.pages.CartPage;
 import com.learning.pom.pages.CheckoutPage;
 import com.learning.pom.pages.HomePage;
@@ -24,8 +20,8 @@ import com.learning.pom.pages.StorePage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-// Billing Address - Parameterized Constructor
-public class _03_Sec_10_03_DO_MyFirstTestCase extends BaseTest {
+// Structural Page object - Billing Address
+public class _02_Sec_09_05_POM_MyFirstTC extends BaseTest {
 
     @Test
     public void guestCheckoutUsingDirectBankTransfer() throws InterruptedException {
@@ -46,24 +42,14 @@ public class _03_Sec_10_03_DO_MyFirstTestCase extends BaseTest {
                 "Assertion for Product Name that comes after click on View Cart link");
         CheckoutPage checkoutPage = cartPage.checkout();
 
-        // BillingAddress billingAddress = new BillingAddress();
-        // Billing Address - Builder Pattern
-//        billingAddress.
-//                setFirstName("demo").
-//                setLastName("user").
-//                setAddressLineOne("San Francisco").
-//                setCity("San Francisco").
-//                setPostalCode("94188").
-//                setEmail("dummyUser875@gmail.com");
-
-        // Billing Address - Parameterized Constructor
-        BillingAddress billingAddress = new BillingAddress("demo","user",
-                "San Francisco","San Francisco","94188","dummyUser875@gmail.com");
-
-
-        // Functional Page Object
+        // Structural Page object
         checkoutPage.
-                setBillingAddress(billingAddress).
+                enterFirstName("demo").
+                enterLastName("user").
+                enterAddressLineOne("San Francisco").
+                enterCity("San Francisco").
+                enterPostCode("94188").
+                enterEmail("dummyUser875@gmail.com").
                 placeOrder();
 
         Thread.sleep(5000);
@@ -114,4 +100,4 @@ public class _03_Sec_10_03_DO_MyFirstTestCase extends BaseTest {
     }
 
 
-}// _03_Sec_10_01_DO_MyFirstTestCase
+}// _02_Sec_09_05_POM_MyFirstTC

@@ -13,37 +13,36 @@
 package com.learning.Z_learningsFromStart;
 
 import com.learning.pom.base.BaseTest;
-import com.learning.pom.pages.HomePage;
-import com.learning.pom.pages.StorePage;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class _02_Sec_09_03_POM_MyFirstTestCase extends BaseTest {
+public class _02_Sec_09_01_POM_MyFirstTC extends BaseTest {
 
     @Test
     public void guestCheckoutUsingDirectBankTransfer() throws InterruptedException {
 
         driver.get("https://askomdch.com/");
 
-        HomePage homePage = new HomePage(driver);
-        StorePage storePage = homePage.navigateToStoreUsingMenu();
+        System.out.println("Clicking on Store");
+        driver.findElement(By.cssSelector("#menu-item-1227 > a")).click();
 
-        // Structural Page Objects
-//      storePage.
-//                enterTxtInSearchFld("Blue").
-//                clickSearchBtn();
+        System.out.println("Filling 'Blue' in search box");
+        driver.findElement(By.xpath("//input[@id='woocommerce-product-search-field-0']")).sendKeys("Blue");
 
-        // Functional Page Objects
-        storePage.searchProduct("Blue");
+        System.out.println("Clicking on Search button");
+        driver.findElement(By.xpath("//button[normalize-space()='Search']")).click();
 
+
+        System.out.println("Assertion for Heading that comes after click on Search button");
         Assert.assertEquals(
-                storePage.getTitle(),
+                driver.findElement(By.cssSelector(".woocommerce-products-header__title.page-title")).getText(),
                 "Search results: “Blue”",
                 "Assertion for Heading that comes after click on Search button"
         );
 
-        storePage.clickAddToCartBtn("Blue Shoes");
+        System.out.println("Clicking on Add To Cart button");
+        driver.findElement(By.xpath("//a[@aria-label='Add “Blue Shoes” to your cart']")).click();
 
         System.out.println("Clicking on View Cart link");
         Thread.sleep(5000);
@@ -142,4 +141,4 @@ public class _02_Sec_09_03_POM_MyFirstTestCase extends BaseTest {
     }
 
 
-}// _02_Sec_09_POM_MyFirstTestCase
+}// _02_Sec_09_01_POM_MyFirstTC

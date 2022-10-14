@@ -28,8 +28,9 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 
-// Remove Application State Dependency
-public class _05_Sec_12_01_TO_MyFirstTestCase extends BaseTest {
+// Remove Static Sleeps (Thread.sleep(5000))
+    // Implicit Wait added to Driver Session (In DriverManager class)
+public class _04_Sec_11_01_Sync_MyFirstTC extends BaseTest {
 
     @Test
     public void guestCheckoutUsingDirectBankTransfer() {
@@ -60,14 +61,8 @@ public class _05_Sec_12_01_TO_MyFirstTestCase extends BaseTest {
                 "myBillingAddress.json",BillingAddress.class);
 
         // Functional Page Object
-//        checkoutPage.
-//                setBillingAddress(billingAddress).
-//                placeOrder();
-
-        // Remove Application State Dependency
         checkoutPage.
                 setBillingAddress(billingAddress).
-                selectDirectBankTransfer().
                 placeOrder();
 
         // Thread.sleep(5000);
@@ -111,16 +106,9 @@ public class _05_Sec_12_01_TO_MyFirstTestCase extends BaseTest {
         User user = new User("dummyUser875@gmail.com","HidummyUser");
 
         // Functional Page Object
-//        checkoutPage.
-//                login(user).
-//                setBillingAddress(billingAddress).
-//                placeOrder();
-
-        // Remove Application State Dependency
         checkoutPage.
                 login(user).
                 setBillingAddress(billingAddress).
-                selectDirectBankTransfer().
                 placeOrder();
 
         // Thread.sleep(5000);
@@ -130,4 +118,4 @@ public class _05_Sec_12_01_TO_MyFirstTestCase extends BaseTest {
 
     }
 
-}// _05_Sec_12_01_TO_MyFirstTestCase
+}// _04_Sec_11_01_Sync_MyFirstTC

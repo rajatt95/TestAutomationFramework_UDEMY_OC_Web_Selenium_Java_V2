@@ -13,7 +13,7 @@
  # */
 /***************************************************/
 
-package com.learning.Z_learningsFromStart;
+package com.learning.pom.tests;
 
 import com.learning.pom.base.BaseTest;
 import com.learning.pom.objects.BillingAddress;
@@ -28,9 +28,8 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 
-// Remove Static Sleeps (Thread.sleep(5000))
-    // Implicit Wait added to Driver Session (In DriverManager class)
-public class _04_Sec_11_01_Sync_MyFirstTestCase extends BaseTest {
+// Remove Application State Dependency
+public class Sec_16_01_Maven_MyFirstTestCase extends BaseTest {
 
     @Test
     public void guestCheckoutUsingDirectBankTransfer() {
@@ -42,7 +41,10 @@ public class _04_Sec_11_01_Sync_MyFirstTestCase extends BaseTest {
                 // searchProduct("Blue");
                  searchProduct(searchFor);
 
-        Assert.assertEquals(storePage.getTitle(), "Search results: “"+searchFor+"”",
+//        Assert.assertEquals(storePage.getTitle(), "Search results: “"+searchFor+"”",
+//                "Assertion for Heading that comes after click on Search button");
+
+        Assert.assertTrue(storePage.getTitle().contains("Search results"),
                 "Assertion for Heading that comes after click on Search button");
 
         // Products - Create JSON Array
@@ -61,8 +63,14 @@ public class _04_Sec_11_01_Sync_MyFirstTestCase extends BaseTest {
                 "myBillingAddress.json",BillingAddress.class);
 
         // Functional Page Object
+//        checkoutPage.
+//                setBillingAddress(billingAddress).
+//                placeOrder();
+
+        // Remove Application State Dependency
         checkoutPage.
                 setBillingAddress(billingAddress).
+                selectDirectBankTransfer().
                 placeOrder();
 
         // Thread.sleep(5000);
@@ -82,7 +90,10 @@ public class _04_Sec_11_01_Sync_MyFirstTestCase extends BaseTest {
                 // searchProduct("Blue");
                  searchProduct(searchFor);
 
-        Assert.assertEquals(storePage.getTitle(), "Search results: “"+searchFor+"”",
+//        Assert.assertEquals(storePage.getTitle(), "Search results: “"+searchFor+"”",
+//                "Assertion for Heading that comes after click on Search button");
+
+        Assert.assertTrue(storePage.getTitle().contains("Search results"),
                 "Assertion for Heading that comes after click on Search button");
 
         // Products - Create JSON Array
@@ -106,9 +117,16 @@ public class _04_Sec_11_01_Sync_MyFirstTestCase extends BaseTest {
         User user = new User("dummyUser875@gmail.com","HidummyUser");
 
         // Functional Page Object
+//        checkoutPage.
+//                login(user).
+//                setBillingAddress(billingAddress).
+//                placeOrder();
+
+        // Remove Application State Dependency
         checkoutPage.
                 login(user).
                 setBillingAddress(billingAddress).
+                selectDirectBankTransfer().
                 placeOrder();
 
         // Thread.sleep(5000);
@@ -118,4 +136,4 @@ public class _04_Sec_11_01_Sync_MyFirstTestCase extends BaseTest {
 
     }
 
-}// _04_Sec_11_01_Sync_MyFirstTestCase
+}// Sec_16_01_Maven_MyFirstTestCase

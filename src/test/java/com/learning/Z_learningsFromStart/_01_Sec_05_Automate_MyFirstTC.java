@@ -21,7 +21,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class _01_Sec_05_Automate_MyFirstTestCase {
+public class _01_Sec_05_Automate_MyFirstTC {
 
 //    @Test
 //    public void dummyTestCase(){
@@ -168,5 +168,4 @@ public class _01_Sec_05_Automate_MyFirstTestCase {
 
     }
 
-
-}// _01_Sec_05_Automate_MyFirstTestCase
+}// _01_Sec_05_Automate_MyFirstTC
