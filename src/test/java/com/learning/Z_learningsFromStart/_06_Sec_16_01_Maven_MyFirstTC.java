@@ -13,7 +13,7 @@
  # */
 /***************************************************/
 
-package com.learning.pom.tests;
+package com.learning.Z_learningsFromStart;
 
 import com.learning.pom.base.BaseTest;
 import com.learning.pom.objects.BillingAddress;
@@ -29,7 +29,7 @@ import org.testng.annotations.Test;
 
 
 // Remove Application State Dependency
-public class Sec_16_01_Maven_MyFirstTestCase extends BaseTest {
+public class _06_Sec_16_01_Maven_MyFirstTC extends BaseTest {
 
     @Test
     public void guestCheckoutUsingDirectBankTransfer() {
@@ -136,4 +136,4 @@ public class Sec_16_01_Maven_MyFirstTestCase extends BaseTest {
 
     }
 
-}// Sec_16_01_Maven_MyFirstTestCase
+}// _06_Sec_16_01_Maven_MyFirstTC
