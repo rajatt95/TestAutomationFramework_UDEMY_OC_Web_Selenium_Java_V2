@@ -15,9 +15,11 @@
 
 package com.learning.pom.factory;
 
+import com.learning.pom.enums.BrowserType;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 
 
 public class DriverManager {
@@ -25,10 +27,52 @@ public class DriverManager {
     public WebDriver initializeDriver(){
         // System.setProperty("webdriver.chrome.driver","Drivers/chromedriver");
         // System.setProperty("webdriver.chrome.driver","Drivers/chromedriver_incompatible");
-        WebDriverManager.chromedriver().setup();
+        // WebDriverManager.chromedriver().setup();
         // WebDriverManager.chromedriver().cachePath("Drivers/Downloaded_By_WDM").setup();
 
-        WebDriver driver = new ChromeDriver();
+//        WebDriverManager.firefoxdriver().setup();
+//        WebDriver driver = new ChromeDriver();
+
+//        WebDriver driver;
+//        String browser = System.getProperty("browser");
+//        switch (browser){
+//            case "Chrome":
+//                WebDriverManager.chromedriver().setup();
+//                driver = new ChromeDriver();
+//                break;
+//            case "Firefox":
+//                WebDriverManager.firefoxdriver().setup();
+//                driver = new FirefoxDriver();
+//                break;
+//            default:
+//                throw new IllegalStateException("Invalid Browser name: "+browser);
+//        }// switch
+
+        WebDriver driver;
+        // This is done to take value of the Browser from Command Line
+            // mvn clean test -Dbrowser=CHROME
+            // mvn clean test -Dbrowser=FIREFOX
+        // String browser = System.getProperty("browser");
+
+        // If we do not pass any value using command line,
+            // Then, Chrome Browser will be taken by default
+            // mvn clean test
+                // We can execute the test cases individually as well
+        String browser = System.getProperty("browser","CHROME");
+
+        switch (BrowserType.valueOf(browser.toUpperCase())){
+            case CHROME:
+                WebDriverManager.chromedriver().setup();
+                driver = new ChromeDriver();
+                break;
+            case FIREFOX:
+                WebDriverManager.firefoxdriver().setup();
+                driver = new FirefoxDriver();
+                break;
+            default:
+                throw new IllegalStateException("Invalid Browser name: "+browser);
+        }// switch
+
         driver.manage().window().maximize();
 
         // As long as the Driver Session is active,

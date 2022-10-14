@@ -19,8 +19,10 @@ import com.learning.pom.base.BasePage;
 import com.learning.pom.objects.BillingAddress;
 import com.learning.pom.objects.User;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 
 public class CheckoutPage extends BasePage {
@@ -49,7 +51,11 @@ public class CheckoutPage extends BasePage {
     private final By loginBtn = By.xpath("//button[@name='login']");
 
     private final By overlay = By.cssSelector(".blockUI.blockOverlay");
+
     private final By countryDropDown = By.id("billing_country");
+    private final By alternateCountryDropDown = By.id("select2-billing_country-container");
+    private final By alternateStateDropDown = By.id("select2-billing_state-container");
+
     private final By stateDropDown = By.id("billing_state");
 
     private final By directBankTransferRadioBtn = By.id("payment_method_bacs");
@@ -78,14 +84,31 @@ public class CheckoutPage extends BasePage {
     }
 
     public CheckoutPage selectCountry(String countryName){
-        Select select = new Select(driver.findElement(countryDropDown));
-        select.selectByVisibleText(countryName);
+//        Select select = new Select(driver.findElement(countryDropDown));
+//        Select select = new Select(waitForElementToBeClickable(countryDropDown));
+//        select.selectByVisibleText(countryName);
+
+        waitForElementToBeClickable(alternateCountryDropDown).click();
+        // Using Dynamic XPath to find the locator of Element
+        WebElement element = waitForElementToBeClickable(By.xpath("//li[text()='" + countryName + "']"));
+        // Using Javascript Executor Interface, Scrolling into the View
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
+        element.click();
+        System.out.println("Country selected from Dropdown: " + countryName);
         return this;
-    }
+}
 
     public CheckoutPage selectState(String stateName){
-        Select select = new Select(driver.findElement(stateDropDown));
-        select.selectByVisibleText(stateName);
+//        Select select = new Select(driver.findElement(stateDropDown));
+//        select.selectByVisibleText(stateName);
+
+        waitForElementToBeClickable(alternateStateDropDown).click();
+        // Using Dynamic XPath to find the locator of Element
+        WebElement element = waitForElementToBeClickable(By.xpath("//li[text()='" + stateName + "']"));
+        // Using Javascript Executor Interface, Scrolling into the View
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
+        element.click();
+        System.out.println("Country selected from Dropdown: " + stateName);
         return this;
     }
 
