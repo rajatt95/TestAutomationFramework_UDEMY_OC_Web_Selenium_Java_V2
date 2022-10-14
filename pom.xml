@@ -7,6 +7,18 @@
     <groupId>com.learning</groupId>
     <artifactId>TestAutomationFramework_UDEMY_OC_Web_Selenium_Java_V2</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <properties>
+        <!-- 11 is pointing towards the Java JDK version. Make sure that it is pointing to the right version -->
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+
+        <!-- UTF-8 - Setting the Encoding standards -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+<!--        If we do not pass any file name using Command Line,
+                Then, Xml file mentioned below will be executed-->
+        <suiteFile>04_testng_run_package_pass_multiple_browsers_name</suiteFile>
+    </properties>
 
     <build>
         <plugins>
@@ -16,21 +28,16 @@
                 <version>3.0.0-M7</version>
                 <configuration>
                     <suiteXmlFiles>
-                        <suiteXmlFile>./src/test/resources/runner/04_testng_run_package_pass_multiple_browsers_name.xml</suiteXmlFile>
+<!--                    <suiteXmlFile>src/test/resources/runner/03_testng_run_package_pass_browser_name.xml</suiteXmlFile>-->
+<!--                    <suiteXmlFile>src/test/resources/runner/04_testng_run_package_pass_multiple_browsers_name.xml</suiteXmlFile>-->
+                        <suiteXmlFile>src/test/resources/runner/${suiteFile}.xml</suiteXmlFile>
                     </suiteXmlFiles>
                 </configuration>
             </plugin>
         </plugins>
     </build>
 
-    <properties>
-        <!-- 11 is pointing towards the Java JDK version. Make sure that it is pointing to the right version -->
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
 
-        <!-- UTF-8 - Setting the Encoding standards -->
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-     </properties>
 
     <dependencies>
         <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
