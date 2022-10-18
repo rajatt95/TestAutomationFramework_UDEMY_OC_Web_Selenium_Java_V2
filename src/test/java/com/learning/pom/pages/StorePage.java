@@ -38,6 +38,10 @@ public class StorePage extends BasePage {
 //        driver.findElement(searchFld).sendKeys(txt);
 //    }
 
+    public StorePage load(){
+        load("store");
+        return this;
+    }
 
     // Structural Page Object
     public StorePage enterTxtInSearchFld(String txt){

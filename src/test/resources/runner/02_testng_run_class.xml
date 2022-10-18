@@ -4,7 +4,7 @@
 <suite name="Test Automation Suite for Product - AskOmDch UI" verbose="1" >
 <test name="Regression Tests for UI"   >
     <classes>
-        <class name="com.learning.pom.tests.MyFirstTestCase"></class>
+        <class name="com.learning.pom.tests._01_MyFirstTestCase"></class>
 <!--        <class name="com.learning.pom.tests.MySecondTestCase"></class>-->
     </classes>
 </test>
