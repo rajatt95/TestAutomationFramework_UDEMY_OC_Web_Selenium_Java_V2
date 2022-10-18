@@ -23,6 +23,7 @@
 
 package com.learning.pom.base;
 
+import com.learning.pom.utils.ConfigLoader;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -48,7 +49,8 @@ public class BasePage {
     }
 
     public void load(String endPoint){
-        driver.get("https://askomdch.com/"+endPoint);
+        // driver.get("https://askomdch.com/"+endPoint);
+        driver.get(ConfigLoader.getInstance().getBaseUrl() +endPoint);
     }
 
     // Re-Usable method to handle Overlays

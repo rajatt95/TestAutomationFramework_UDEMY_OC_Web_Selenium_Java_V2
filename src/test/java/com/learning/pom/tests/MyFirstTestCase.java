@@ -22,6 +22,7 @@ import com.learning.pom.pages.CartPage;
 import com.learning.pom.pages.CheckoutPage;
 import com.learning.pom.pages.HomePage;
 import com.learning.pom.pages.StorePage;
+import com.learning.pom.utils.ConfigLoader;
 import com.learning.pom.utils.JacksonUtils;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -114,7 +115,8 @@ public class MyFirstTestCase extends BaseTest {
                 "myBillingAddress.json",BillingAddress.class);
 
         // User - Create Data Object [With Assignment]
-        User user = new User("dummyUser875@gmail.com","HidummyUser");
+        // User user = new User("dummyUser875@gmail.com","HidummyUser");
+        User user = new User(ConfigLoader.getInstance().getUsername(), ConfigLoader.getInstance().getPassword());
 
         // Functional Page Object
 //        checkoutPage.

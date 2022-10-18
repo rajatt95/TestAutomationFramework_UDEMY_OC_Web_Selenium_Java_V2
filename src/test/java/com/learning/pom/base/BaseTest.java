@@ -15,10 +15,12 @@
 
 package com.learning.pom.base;
 
+import com.learning.pom.enums.BrowserType;
 import com.learning.pom.factory.DriverManager;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 
 public class BaseTest {
@@ -46,12 +48,18 @@ public class BaseTest {
     // browser_testng - It is the name of the parameter in testng.xml file
     @Parameters("browser_testng")
     @BeforeMethod
-    public void startDriver(String browser_testng){
+    // public void startDriver(String browser_testng){
+    // @Optional -> We can run the test case individually as well (Directly from Test class)
+    public void startDriver(@Optional String browser_testng){
 
         // Browser passed from TestNG.xml file will be taken by default
         // If Browser value is not passed from command line
         String browser = System.getProperty("browser",browser_testng);
 
+        if(browser==null) {
+            // browser = "CHROME";
+            browser = BrowserType.CHROME.toString();
+        }
         // driver = new DriverManager().initializeDriver(browser_testng);
         setDriver(new DriverManager().initializeDriver(browser));
         System.out.println("CURRENT THREAD (Thread.currentThread().getId()): "+Thread.currentThread().getId());
