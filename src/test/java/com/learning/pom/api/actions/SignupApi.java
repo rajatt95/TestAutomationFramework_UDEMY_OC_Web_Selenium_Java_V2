@@ -23,14 +23,21 @@
 
 package com.learning.pom.api.actions;
 
+import com.learning.pom.objects.User;
 import com.learning.pom.utils.ConfigLoader;
+import com.learning.pom.utils.FakerUtils;
 import io.restassured.http.Cookies;
+import io.restassured.http.Header;
+import io.restassured.http.Headers;
 import io.restassured.response.Response;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
+import java.util.HashMap;
+
 import static io.restassured.RestAssured.given;
+import static io.restassured.RestAssured.head;
 
 public class SignupApi {
     private Cookies cookies;
@@ -90,13 +97,68 @@ public class SignupApi {
         return element.attr("value");
     }
 
+    // Request URL: https://askomdch.com/register
+    // Request Method: POST
+    public Response registerUser(User user){
+        Cookies cookies = new Cookies();
+
+        Header header = new Header("content-type","application/x-www-form-urlencoded");
+        Headers headers = new Headers(header);
+
+        HashMap<String, String> formParams = new HashMap<>();
+        formParams.put("username",user.getUsername());
+        formParams.put("email",user.getEmail());
+        formParams.put("password",user.getPassword());
+        formParams.put("woocommerce-register-nonce",fetchRegisterNonceValueUsingJSoup());
+        formParams.put("register","Register");
+
+        Response response = given().
+                    // ConfigLoader.getInstance().getBaseUrl() -> https://askomdch.com/
+                            baseUri(ConfigLoader.getInstance().getBaseUrl()).
+                    headers(headers).
+                    formParams(formParams).
+                    cookies(cookies).
+                    // log().all() -> To log the Request details
+                            log().all().
+                when().
+                    // Calling the API using POST as HTTP Method
+                    // https://askomdch.com/register
+                    post("register").
+                then().
+                    // log().all() -> To log the Response details
+                    log().all().
+                    extract().
+                    response();
+
+        // Checking the Response Status Code
+        if(response.getStatusCode()!=302){
+            throw new RuntimeException("Failed to register the account , HTTP Status Code: "+response.getStatusCode());
+        }
+        this.cookies = response.getDetailedCookies();
+        return response;
+    }
+
     public static void main(String[] args) {
         // new SignupApi().getAccount();
         // System.out.println("new SignupApi().fetchRegisterNonceValueUsingGroovyGPath() = " +
                 // new SignupApi().fetchRegisterNonceValueUsingGroovyGPath());
-        System.out.println("new SignupApi().fetchRegisterNonceValueUsingJSoup() = " +
-                new SignupApi().fetchRegisterNonceValueUsingJSoup());
-    }
+//        System.out.println("new SignupApi().fetchRegisterNonceValueUsingJSoup() = " +
+//                new SignupApi().fetchRegisterNonceValueUsingJSoup());
 
+        String username = "demoUser" + new FakerUtils().generateRandomNumber();
+        String password = "demoPwd";
+        String email = username + "@gmail.com";
+
+        User user = new User().
+                setUsername(username).
+                setPassword(password).
+                setEmail(email);
+
+        System.out.println("=============================="+"new SignupApi().registerUser(user) = ");
+        System.out.println(new SignupApi().registerUser(user));
+        System.out.println("=============================="+"new SignupApi().getCookies() = " );
+        System.out.println(new SignupApi().getCookies());
+
+    }
 
 }
