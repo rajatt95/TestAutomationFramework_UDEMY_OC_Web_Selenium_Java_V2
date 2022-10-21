@@ -29,7 +29,7 @@
                 <version>3.0.0-M7</version>
                 <configuration>
 
-<!--                    Drive Parallel using TestNG-->
+<!--                Drive Parallel using TestNG-->
                     <suiteXmlFiles>
 <!--                    <suiteXmlFile>src/test/resources/runner/03_testng_run_package_pass_browser_name.xml</suiteXmlFile>-->
 <!--                    <suiteXmlFile>src/test/resources/runner/04_testng_run_package_pass_multiple_browsers_name.xml</suiteXmlFile>-->
@@ -73,6 +73,28 @@
             <groupId>io.github.bonigarcia</groupId>
             <artifactId>webdrivermanager</artifactId>
             <version>5.3.0</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/io.rest-assured/rest-assured -->
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>5.2.0</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.jsoup/jsoup -->
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.15.3</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.github.javafaker/javafaker -->
+        <dependency>
+            <groupId>com.github.javafaker</groupId>
+            <artifactId>javafaker</artifactId>
+            <version>1.0.2</version>
         </dependency>
 
     </dependencies>
