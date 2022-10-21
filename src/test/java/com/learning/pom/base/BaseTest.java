@@ -17,11 +17,16 @@ package com.learning.pom.base;
 
 import com.learning.pom.enums.BrowserType;
 import com.learning.pom.factory.DriverManager;
+import com.learning.pom.utils.CookieUtils;
+import io.restassured.http.Cookies;
+import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
+
+import java.util.List;
 
 public class BaseTest {
 
@@ -74,4 +79,28 @@ public class BaseTest {
         getDriver().quit();
     }
 
+    public void injectCookiesIntoBrowser(Cookies restAssuredCookies){
+        List<Cookie> seleniumCookies = new CookieUtils().
+                convertRestAssuredCookiesToSeleniumCookies(restAssuredCookies);
+
+        for(Cookie seleniumCookie: seleniumCookies){
+            getDriver().manage().addCookie(seleniumCookie);
+        }// for
+
+    }// injectCookiesIntoBrowser
+
 }// BaseTest
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -23,6 +23,7 @@
 
 package com.learning.pom.api.actions;
 
+import com.learning.pom.api.ApiRequest;
 import com.learning.pom.objects.User;
 import com.learning.pom.utils.ConfigLoader;
 import com.learning.pom.utils.FakerUtils;
@@ -49,21 +50,23 @@ public class SignupApi {
     // Request Method: GET
     private Response getAccount(){
         Cookies cookies = new Cookies();
-        Response response = given().
-                // ConfigLoader.getInstance().getBaseUrl() -> https://askomdch.com/
-                baseUri(ConfigLoader.getInstance().getBaseUrl()).
-                cookies(cookies).
-                // log().all() -> To log the Request details
-                log().all().
-        when().
-            // Calling the API using GET as HTTP Method
-                    // https://askomdch.com/account
-            get("account").
-        then().
-                // log().all() -> To log the Response details
-                log().all().
-                extract().
-                response();
+//        Response response = given().
+//                // ConfigLoader.getInstance().getBaseUrl() -> https://askomdch.com/
+//                baseUri(ConfigLoader.getInstance().getBaseUrl()).
+//                cookies(cookies).
+//                // log().all() -> To log the Request details
+//                log().all().
+//        when().
+//            // Calling the API using GET as HTTP Method
+//                    // https://askomdch.com/account
+//            get("account").
+//        then().
+//                // log().all() -> To log the Response details
+//                log().all().
+//                extract().
+//                response();
+
+        Response response=ApiRequest.get("account", cookies);
 
         // Checking the Response Status Code
         if(response.getStatusCode()!=200){
@@ -71,7 +74,6 @@ public class SignupApi {
         }
         return response;
     }
-
 
     // Parse and Fetch using Groovy GPath
     private String fetchRegisterNonceValueUsingGroovyGPath(){
@@ -99,36 +101,44 @@ public class SignupApi {
 
     // Request URL: https://askomdch.com/register
     // Request Method: POST
+        // formParams.put("username",user.getUsername());
+        // formParams.put("email",user.getEmail());
+        // formParams.put("password",user.getPassword());
+        // formParams.put("woocommerce-register-nonce",fetchRegisterNonceValueUsingJSoup());
+        // formParams.put("register","Register");
     public Response registerUser(User user){
         Cookies cookies = new Cookies();
 
         Header header = new Header("content-type","application/x-www-form-urlencoded");
         Headers headers = new Headers(header);
 
-        HashMap<String, String> formParams = new HashMap<>();
+        HashMap<String, Object> formParams = new HashMap<>();
         formParams.put("username",user.getUsername());
         formParams.put("email",user.getEmail());
         formParams.put("password",user.getPassword());
         formParams.put("woocommerce-register-nonce",fetchRegisterNonceValueUsingJSoup());
         formParams.put("register","Register");
 
-        Response response = given().
-                    // ConfigLoader.getInstance().getBaseUrl() -> https://askomdch.com/
-                            baseUri(ConfigLoader.getInstance().getBaseUrl()).
-                    headers(headers).
-                    formParams(formParams).
-                    cookies(cookies).
-                    // log().all() -> To log the Request details
-                            log().all().
-                when().
-                    // Calling the API using POST as HTTP Method
-                    // https://askomdch.com/register
-                    post("register").
-                then().
-                    // log().all() -> To log the Response details
-                    log().all().
-                    extract().
-                    response();
+//        Response response = given().
+//                    // ConfigLoader.getInstance().getBaseUrl() -> https://askomdch.com/
+//                            baseUri(ConfigLoader.getInstance().getBaseUrl()).
+//                    headers(headers).
+//                    formParams(formParams).
+//                    cookies(cookies).
+//                    // log().all() -> To log the Request details
+//                            log().all().
+//                when().
+//                    // Calling the API using POST as HTTP Method
+//                    // https://askomdch.com/register
+//                    post("register").
+//                then().
+//                    // log().all() -> To log the Response details
+//                    log().all().
+//                    extract().
+//                    response();
+
+        //Response response=ApiRequest.post(Endpoint.ACCOUNT.url, headers, formParams, cookies);
+        Response response=ApiRequest.post("/account", headers, formParams, cookies);
 
         // Checking the Response Status Code
         if(response.getStatusCode()!=302){

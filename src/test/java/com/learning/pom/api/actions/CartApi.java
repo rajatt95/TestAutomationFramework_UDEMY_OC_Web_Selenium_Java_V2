@@ -17,12 +17,11 @@
  # *        https://github.com/stars/rajatt95/lists/udemy-omprakash-chavan
  # */
 
-
-
 /***************************************************/
 
 package com.learning.pom.api.actions;
 
+import com.learning.pom.api.ApiRequest;
 import com.learning.pom.objects.User;
 import com.learning.pom.utils.ConfigLoader;
 import com.learning.pom.utils.FakerUtils;
@@ -62,7 +61,7 @@ public class CartApi {
         // formParams.put("product_sku", "");
         // formParams.put("product_id", productID);
         // formParams.put("quantity", productQuantity);
-    private Response addToCart(int productID, int productQuantity) {
+    public Response addToCart(int productID, int productQuantity) {
 
         Header header = new Header("content-type", "application/x-www-form-urlencoded");
         Headers headers = new Headers(header);
@@ -77,23 +76,25 @@ public class CartApi {
             cookies = new Cookies();
         }
 
-        Response response = given().
-                // ConfigLoader.getInstance().getBaseUrl() -> https://askomdch.com/
-                        baseUri(ConfigLoader.getInstance().getBaseUrl()).
-                headers(headers).
-                formParams(formParams).
-                cookies(cookies).
-                // log().all() -> To log the Request details
-                        log().all().
-                when().
-                // Calling the API using POST as HTTP Method
-                // https://askomdch.com/?wc-ajax=add_to_cart
-                        post("?wc-ajax=add_to_cart").
-                then().
-                // log().all() -> To log the Response details
-                        log().all().
-                extract().
-                response();
+//        Response response = given().
+//                // ConfigLoader.getInstance().getBaseUrl() -> https://askomdch.com/
+//                        baseUri(ConfigLoader.getInstance().getBaseUrl()).
+//                headers(headers).
+//                formParams(formParams).
+//                cookies(cookies).
+//                // log().all() -> To log the Request details
+//                        log().all().
+//                when().
+//                // Calling the API using POST as HTTP Method
+//                // https://askomdch.com/?wc-ajax=add_to_cart
+//                        post("?wc-ajax=add_to_cart").
+//                then().
+//                // log().all() -> To log the Response details
+//                        log().all().
+//                extract().
+//                response();
+
+        Response response= ApiRequest.post("/?wc-ajax=add_to_cart", headers, formParams, cookies);
 
         // Checking the Response Status Code
         if (response.getStatusCode() != 200) {
@@ -114,7 +115,7 @@ public class CartApi {
     }
 
     // Logged-in User
-    public static void main(String[] args) {
+    public static void main_LoggedInUser(String[] args) {
         // Logged-in User
         String username = "demoUser" + new FakerUtils().generateRandomNumber();
         String password = "demoPwd";
