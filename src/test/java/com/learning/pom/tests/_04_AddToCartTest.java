@@ -45,13 +45,13 @@ public class _04_AddToCartTest extends BaseTest {
 
         CartPage cartPage = new StorePage(getDriver()).
                 load().
+                getProductThumbnail().
                 clickAddToCartBtn(product.getName()).
                 clickViewCart();
 
         Assert.assertEquals(cartPage.getProductName(), product.getName(),
                 "Assertion for Product Name that comes after click on View Cart link.");
     }
-
 }
 
 

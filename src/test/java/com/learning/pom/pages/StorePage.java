@@ -16,6 +16,7 @@
 package com.learning.pom.pages;
 
 import com.learning.pom.base.BasePage;
+import com.learning.pom.pages.components.ProductThumbnail;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -27,11 +28,17 @@ public class StorePage extends BasePage {
 
     // Hard coded String - Product name has been used to find the Element
     // private final By addToCartBtn = By.xpath("//a[@aria-label='Add “Blue Shoes” to your cart']");
-    private final By viewCartLink = By.cssSelector("a[title='View cart']");
 
+    // private final By viewCartLink = By.cssSelector("a[title='View cart']");
+        // Moved in ProductThumbnail (Composition)
 
+    private ProductThumbnail productThumbnail;
+    public ProductThumbnail getProductThumbnail() {
+        return productThumbnail;
+    }
     public StorePage(WebDriver driver){
         super(driver);
+        productThumbnail = new ProductThumbnail(driver);
     }
 
 //    public void enterTxtInSearchFld(String txt){
@@ -87,25 +94,26 @@ public class StorePage extends BasePage {
 
     }
 
-    private By getAddToCartBtnElement(String productName){
-        // addToCartBtn = By.xpath("//a[@aria-label='Add “Blue Shoes” to your cart']");
-        return By.xpath("//a[@aria-label='Add “"+productName+"” to your cart']");
-    }
-    public StorePage clickAddToCartBtn(String productName){
-        By addToCartBtn = getAddToCartBtnElement(productName);
-
-        // driver.findElement(addToCartBtn).click();
-        waitForElementToBeClickable(addToCartBtn).click();
-
-        return this;
-    }
-
-    public CartPage clickViewCart(){
-        // driver.findElement(viewCartLink).click();
-        waitForElementToBeClickable(viewCartLink).click();
-
-        return new CartPage(driver);
-    }
+//
+//    private By getAddToCartBtnElement(String productName){
+//        // addToCartBtn = By.xpath("//a[@aria-label='Add “Blue Shoes” to your cart']");
+//        return By.xpath("//a[@aria-label='Add “"+productName+"” to your cart']");
+//    }
+//    public StorePage clickAddToCartBtn(String productName){
+//        By addToCartBtn = getAddToCartBtnElement(productName);
+//
+//        // driver.findElement(addToCartBtn).click();
+//        waitForElementToBeClickable(addToCartBtn).click();
+//
+//        return this;
+//    }
+//
+//    public CartPage clickViewCart(){
+//        // driver.findElement(viewCartLink).click();
+//        waitForElementToBeClickable(viewCartLink).click();
+//
+//        return new CartPage(driver);
+//    }
 
 
 }// StorePage

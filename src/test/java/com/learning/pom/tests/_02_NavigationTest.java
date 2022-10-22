@@ -40,12 +40,18 @@ public class _02_NavigationTest extends BaseTest {
 
         StorePage storePage = new HomePage(getDriver()).
                 load().
-                navigateToStoreUsingMenu();
+                getMyHeader().navigateToStoreUsingMenu();
 
         Assert.assertTrue(storePage.getTitle().contains("Store"),
                 "Assertion for Heading that comes after landing on Store Page.");
 
     }
 }
+
+
+
+
+
+
 
 

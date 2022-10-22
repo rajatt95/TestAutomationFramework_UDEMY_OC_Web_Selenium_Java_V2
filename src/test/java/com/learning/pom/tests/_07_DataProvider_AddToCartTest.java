@@ -53,6 +53,7 @@ public class _07_DataProvider_AddToCartTest extends BaseTest {
         public void addToCartFeaturedProducts(Product product){
             CartPage cartPage = new HomePage(getDriver()).
                     load().
+                    getProductThumbnail().
                     clickAddToCartBtn(product.getName()).
                     clickViewCart();
 

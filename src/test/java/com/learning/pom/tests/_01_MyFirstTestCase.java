@@ -45,6 +45,7 @@ public class _01_MyFirstTestCase extends BaseTest {
         //      StorePage storePage = new HomePage(driver).
         StorePage storePage = new HomePage(getDriver()).
                 load().
+                getMyHeader().
                 navigateToStoreUsingMenu().
                 // searchProduct("Blue");
                         searchProduct(searchFor);
@@ -57,9 +58,12 @@ public class _01_MyFirstTestCase extends BaseTest {
 
         // Products - Create JSON Array
         Product product = new Product(1215);
-        storePage.clickAddToCartBtn(product.getName());
+        storePage.
+                getProductThumbnail().
+                clickAddToCartBtn(product.getName());
         // Thread.sleep(5000);
-        CartPage cartPage = storePage.clickViewCart();
+        CartPage cartPage = storePage.
+                getProductThumbnail().clickViewCart();
 
         Assert.assertEquals(cartPage.getProductName(), product.getName(),
                 "Assertion for Product Name that comes after click on View Cart link");
@@ -95,7 +99,7 @@ public class _01_MyFirstTestCase extends BaseTest {
 //      StorePage storePage = new HomePage(driver).
         StorePage storePage = new HomePage(getDriver()).
                 load().
-                navigateToStoreUsingMenu().
+                getMyHeader().navigateToStoreUsingMenu().
                 // searchProduct("Blue");
                         searchProduct(searchFor);
 
@@ -107,9 +111,12 @@ public class _01_MyFirstTestCase extends BaseTest {
 
         // Products - Create JSON Array
         Product product = new Product(1215);
-        storePage.clickAddToCartBtn(product.getName());
+        storePage.
+                getProductThumbnail().
+                clickAddToCartBtn(product.getName());
         // Thread.sleep(5000);
-        CartPage cartPage = storePage.clickViewCart();
+        CartPage cartPage = storePage.
+                getProductThumbnail().clickViewCart();
 
         Assert.assertEquals(cartPage.getProductName(), product.getName(),
                 "Assertion for Product Name that comes after click on View Cart link");

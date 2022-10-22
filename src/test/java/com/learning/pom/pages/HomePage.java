@@ -16,6 +16,8 @@
 package com.learning.pom.pages;
 
 import com.learning.pom.base.BasePage;
+import com.learning.pom.pages.components.MyHeader;
+import com.learning.pom.pages.components.ProductThumbnail;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -24,11 +26,25 @@ public class HomePage extends BasePage {
 
     // storeMenuLink is marked as private
         // This variable will be available inside this class only
-    private final By storeMenuLink = By.cssSelector("#menu-item-1227 > a");
-    private final By viewCartLink = By.cssSelector("a[title='View cart']");
+    // private final By storeMenuLink = By.cssSelector("#menu-item-1227 > a");
+        // Moved in MyHeader class (Composition)
+    // private final By viewCartLink = By.cssSelector("a[title='View cart']");
+        // Moved in ProductThumbnail class (Composition)
 
+    private MyHeader myHeader;
+    private ProductThumbnail productThumbnail;
+
+    public MyHeader getMyHeader() {
+        return myHeader;
+    }
+
+    public ProductThumbnail getProductThumbnail() {
+        return productThumbnail;
+    }
     public HomePage(WebDriver driver){
         super(driver);
+        myHeader = new MyHeader(driver);
+        productThumbnail = new ProductThumbnail(driver);
     }
 
     public HomePage load(){
@@ -48,38 +64,36 @@ public class HomePage extends BasePage {
 //    public void clickStoreMenuLink(){
 //        driver.findElement(storeMenuLink).click();
 //    }
-    public StorePage navigateToStoreUsingMenu(){
-        // driver.findElement(storeMenuLink).click();
-        waitForElementToBeClickable(storeMenuLink).click();
 
-        // This is the example of Fluent Interface
-            // After clicking on a Store Menu link, User is navigated to Store Page
-        return new StorePage(driver);
-    }
+//    public StorePage navigateToStoreUsingMenu(){
+//        // driver.findElement(storeMenuLink).click();
+//        waitForElementToBeClickable(storeMenuLink).click();
+//
+//        // This is the example of Fluent Interface
+//            // After clicking on a Store Menu link, User is navigated to Store Page
+//        return new StorePage(driver);
+//    }
 
     // getAddToCartBtnElement(), clickAddToCartBtn(), clickViewCart()
         // We have copied these methods from StorePage class
         // This is a duplication of Code
             // Will use COMPOSITION to overcome this issue
                 // Principle DRY (Do not Repeat Yourself) has to be maintained
-    private By getAddToCartBtnElement(String productName){
-        // addToCartBtn = By.xpath("//a[@aria-label='Add “Blue Shoes” to your cart']");
-        return By.xpath("//a[@aria-label='Add “"+productName+"” to your cart']");
-    }
-    public HomePage clickAddToCartBtn(String productName){
-        By addToCartBtn = getAddToCartBtnElement(productName);
-
-        // driver.findElement(addToCartBtn).click();
-        waitForElementToBeClickable(addToCartBtn).click();
-
-        return this;
-    }
-
-    public CartPage clickViewCart(){
-        // driver.findElement(viewCartLink).click();
-        waitForElementToBeClickable(viewCartLink).click();
-
-        return new CartPage(driver);
-    }
+//    private By getAddToCartBtnElement(String productName){
+//        // addToCartBtn = By.xpath("//a[@aria-label='Add “Blue Shoes” to your cart']");
+//        return By.xpath("//a[@aria-label='Add “"+productName+"” to your cart']");
+//    }
+//    public HomePage clickAddToCartBtn(String productName){
+//        By addToCartBtn = getAddToCartBtnElement(productName);
+//        // driver.findElement(addToCartBtn).click();
+//        waitForElementToBeClickable(addToCartBtn).click();
+//        return this;
+//    }
+//
+//    public CartPage clickViewCart(){
+//        // driver.findElement(viewCartLink).click();
+//        waitForElementToBeClickable(viewCartLink).click();
+//        return new CartPage(driver);
+//    }
 
 }// HomePage

@@ -37,10 +37,10 @@ public class _07_Sec_20_01_Parallel_Exec_MyFirstTC extends BaseTest {
         String searchFor = "Blue";
         //      StorePage storePage = new HomePage(driver).
                 StorePage storePage = new HomePage(getDriver()).
-                load().
-                navigateToStoreUsingMenu().
-                // searchProduct("Blue");
-                 searchProduct(searchFor);
+                        load().
+                        getMyHeader().navigateToStoreUsingMenu().
+                        // searchProduct("Blue");
+                        searchProduct(searchFor);
 
 //        Assert.assertEquals(storePage.getTitle(), "Search results: “"+searchFor+"”",
 //                "Assertion for Heading that comes after click on Search button");
@@ -50,9 +50,12 @@ public class _07_Sec_20_01_Parallel_Exec_MyFirstTC extends BaseTest {
 
         // Products - Create JSON Array
         Product product = new Product(1215);
-        storePage.clickAddToCartBtn(product.getName());
+        storePage.
+                getProductThumbnail().
+                clickAddToCartBtn(product.getName());
         // Thread.sleep(5000);
-        CartPage cartPage = storePage.clickViewCart();
+        CartPage cartPage = storePage.
+                getProductThumbnail().clickViewCart();
 
         Assert.assertEquals(cartPage.getProductName(), product.getName(),
                 "Assertion for Product Name that comes after click on View Cart link");
@@ -88,6 +91,7 @@ public class _07_Sec_20_01_Parallel_Exec_MyFirstTC extends BaseTest {
 //      StorePage storePage = new HomePage(driver).
         StorePage storePage = new HomePage(getDriver()).
                 load().
+                getMyHeader().
                 navigateToStoreUsingMenu().
                 // searchProduct("Blue");
                  searchProduct(searchFor);
@@ -100,9 +104,13 @@ public class _07_Sec_20_01_Parallel_Exec_MyFirstTC extends BaseTest {
 
         // Products - Create JSON Array
         Product product = new Product(1215);
-        storePage.clickAddToCartBtn(product.getName());
+        storePage.
+                getProductThumbnail().
+                clickAddToCartBtn(product.getName());
         // Thread.sleep(5000);
-        CartPage cartPage = storePage.clickViewCart();
+        CartPage cartPage = storePage.
+                getProductThumbnail().
+                clickViewCart();
 
         Assert.assertEquals(cartPage.getProductName(), product.getName(),
                 "Assertion for Product Name that comes after click on View Cart link");
