@@ -2,7 +2,7 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
 
 <suite name="Test Automation Suite for Application - AskOmDch UI" verbose="1"
-       parallel="tests" thread-count="6" data-provider-thread-count="2">
+       parallel="tests" thread-count="6" data-provider-thread-count="3">
     <test thread-count="2" parallel="methods" name="Regression Tests for UI - CHROME" >
         <parameter name="browser_testng" value="CHROME"></parameter>
         <packages>

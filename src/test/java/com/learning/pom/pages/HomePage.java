@@ -25,6 +25,7 @@ public class HomePage extends BasePage {
     // storeMenuLink is marked as private
         // This variable will be available inside this class only
     private final By storeMenuLink = By.cssSelector("#menu-item-1227 > a");
+    private final By viewCartLink = By.cssSelector("a[title='View cart']");
 
     public HomePage(WebDriver driver){
         super(driver);
@@ -54,6 +55,31 @@ public class HomePage extends BasePage {
         // This is the example of Fluent Interface
             // After clicking on a Store Menu link, User is navigated to Store Page
         return new StorePage(driver);
+    }
+
+    // getAddToCartBtnElement(), clickAddToCartBtn(), clickViewCart()
+        // We have copied these methods from StorePage class
+        // This is a duplication of Code
+            // Will use COMPOSITION to overcome this issue
+                // Principle DRY (Do not Repeat Yourself) has to be maintained
+    private By getAddToCartBtnElement(String productName){
+        // addToCartBtn = By.xpath("//a[@aria-label='Add “Blue Shoes” to your cart']");
+        return By.xpath("//a[@aria-label='Add “"+productName+"” to your cart']");
+    }
+    public HomePage clickAddToCartBtn(String productName){
+        By addToCartBtn = getAddToCartBtnElement(productName);
+
+        // driver.findElement(addToCartBtn).click();
+        waitForElementToBeClickable(addToCartBtn).click();
+
+        return this;
+    }
+
+    public CartPage clickViewCart(){
+        // driver.findElement(viewCartLink).click();
+        waitForElementToBeClickable(viewCartLink).click();
+
+        return new CartPage(driver);
     }
 
 }// HomePage

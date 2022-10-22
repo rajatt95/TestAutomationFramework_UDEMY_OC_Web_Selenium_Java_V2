@@ -17,47 +17,25 @@
  # *        https://github.com/stars/rajatt95/lists/udemy-omprakash-chavan
  # */
 
-
-
 /***************************************************/
 
-package com.learning.pom.tests;
+package com.learning.pom.dataproviders;
 
-import com.learning.pom.base.BaseTest;
 import com.learning.pom.objects.Product;
-import com.learning.pom.pages.CartPage;
-import com.learning.pom.pages.HomePage;
-import com.learning.pom.pages.StorePage;
+import com.learning.pom.utils.ConfigLoader;
 import com.learning.pom.utils.JacksonUtils;
-import org.testng.Assert;
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.builder.ResponseSpecBuilder;
+import io.restassured.filter.log.LogDetail;
+import io.restassured.specification.RequestSpecification;
+import io.restassured.specification.ResponseSpecification;
 import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
 
-import java.util.Iterator;
+public class DataProviders {
 
-
-public class _04_AddToCartTest extends BaseTest {
-
-    @Test
-    public void addToCartFromStorePage(){
-
-        Product product = new Product(1215);
-
-        CartPage cartPage = new StorePage(getDriver()).
-                load().
-                clickAddToCartBtn(product.getName()).
-                clickViewCart();
-
-        Assert.assertEquals(cartPage.getProductName(), product.getName(),
-                "Assertion for Product Name that comes after click on View Cart link.");
+	@DataProvider(name = "getFeaturedProducts", parallel = true)
+    public Object[] getFeaturedProducts(){
+        return JacksonUtils.deSerializationJSON("products.json", Product[].class);
     }
 
 }
-
-
-
-
-
-
-
-
