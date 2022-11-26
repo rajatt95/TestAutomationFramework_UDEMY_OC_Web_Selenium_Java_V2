@@ -181,10 +181,17 @@ public class CheckoutPage extends BasePage {
         return this;
     }
 
+
+    private CheckoutPage waitForLoginBtnToDisappear() {
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(loginBtn));
+        return this;
+    }
+
     public CheckoutPage login(String username, String password) {
         enterUsername(username);
         enterPassword(password);
         clickLoginBtn();
+        waitForLoginBtnToDisappear();
         return this;
     }
 

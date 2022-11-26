@@ -33,7 +33,8 @@ import org.testng.annotations.DataProvider;
 
 public class DataProviders {
 
-	@DataProvider(name = "getFeaturedProducts", parallel = true)
+	// @DataProvider(name = "getFeaturedProducts", parallel = true)
+    @DataProvider(name = "getFeaturedProducts", parallel = false)
     public Object[] getFeaturedProducts(){
         return JacksonUtils.deSerializationJSON("products.json", Product[].class);
     }

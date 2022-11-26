@@ -55,8 +55,8 @@ public class BaseTest {
     @BeforeMethod
     // public void startDriver(String browser_testng){
     // @Optional -> We can run the test case individually as well (Directly from Test class)
-    public void startDriver(@Optional String browser_testng){
-
+    // public void startDriver(@Optional String browser_testng){
+    public synchronized void startDriver(@Optional String browser_testng){
         // Browser passed from TestNG.xml file will be taken by default
         // If Browser value is not passed from command line
         String browser = System.getProperty("browser",browser_testng);
@@ -72,7 +72,8 @@ public class BaseTest {
     }
 
     @AfterMethod
-    public void quitDriver(){
+    // public void quitDriver(){
+    public synchronized void quitDriver(){
         // driver.quit();
         System.out.println("CURRENT THREAD (Thread.currentThread().getId()): "+Thread.currentThread().getId());
         System.out.println("DRIVER (getDriver()): "+getDriver());
