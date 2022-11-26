@@ -18,6 +18,7 @@ package com.learning.pom.pages.components;
 import com.learning.pom.base.BasePage;
 import com.learning.pom.pages.CartPage;
 import com.learning.pom.pages.StorePage;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -29,6 +30,7 @@ public class MyHeader extends BasePage {
         super(driver);
     }
 
+    @Step
     public StorePage navigateToStoreUsingMenu(){
         // driver.findElement(storeMenuLink).click();
         waitForElementToBeClickable(storeMenuLink).click();

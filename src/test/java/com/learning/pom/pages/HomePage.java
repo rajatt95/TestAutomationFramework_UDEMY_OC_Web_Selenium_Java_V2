@@ -18,6 +18,7 @@ package com.learning.pom.pages;
 import com.learning.pom.base.BasePage;
 import com.learning.pom.pages.components.MyHeader;
 import com.learning.pom.pages.components.ProductThumbnail;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -34,6 +35,7 @@ public class HomePage extends BasePage {
     private MyHeader myHeader;
     private ProductThumbnail productThumbnail;
 
+    @Step
     public MyHeader getMyHeader() {
         return myHeader;
     }
@@ -47,6 +49,7 @@ public class HomePage extends BasePage {
         productThumbnail = new ProductThumbnail(driver);
     }
 
+    @Step
     public HomePage load(){
         load("");
 

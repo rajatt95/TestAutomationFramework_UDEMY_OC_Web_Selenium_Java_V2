@@ -26,16 +26,28 @@ package com.learning.pom.tests;
 import com.learning.pom.base.BaseTest;
 import com.learning.pom.pages.HomePage;
 import com.learning.pom.pages.StorePage;
+import io.qameta.allure.*;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 
 
 
-
+@Epic("ALLURE - AskOmDch UI")
+@Feature("ALLURE - Navigation")
 public class _02_NavigationTest extends BaseTest {
 
-    @Test
+    @Story("ALLURE - Navigation using the links : Home and Store")
+    // @Test
+    // Description provided will be shown in the Allure Reports
+        // Previously - navigateFromHomeToStoreUsingMainMenu
+        // Now - ALLURE - Navigate From Home To Store Using Main Menu
+    @Test(description = "ALLURE - Navigate From Home To Store Using Main Menu")
+    @Description("ALLURE - Description -> Navigate From Home To Store Using Main Menu")
+    @Link("https://example.org")
+    @Link(name = "allure", type = "mylink")
+    @TmsLink("12345") // @TmsLink -> Manual test case written in Test Management System
+    @Issue("4897")// @Issue -> For the issue already raised
     public void navigateFromHomeToStoreUsingMainMenu(){
 
         StorePage storePage = new HomePage(getDriver()).
