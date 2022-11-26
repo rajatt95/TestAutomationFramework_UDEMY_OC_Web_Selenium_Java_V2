@@ -51,6 +51,10 @@ public class _04_AddToCartTest extends BaseTest {
 
         Assert.assertEquals(cartPage.getProductName(), product.getName(),
                 "Assertion for Product Name that comes after click on View Cart link.");
+
+        // Intentionally, Failing this test case to check the screenshot
+//        Assert.assertEquals(cartPage.getProductName(), product.getName()+"FAIL",
+//                "Assertion for Product Name that comes after click on View Cart link.");
     }
 }
 

@@ -20,13 +20,23 @@ import com.learning.pom.factory.DriverManager;
 import com.learning.pom.factory.DriverManagerFactory;
 import com.learning.pom.utils.CookieUtils;
 import io.restassured.http.Cookies;
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.Cookie;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
+import ru.yandex.qatools.ashot.AShot;
+import ru.yandex.qatools.ashot.Screenshot;
+import ru.yandex.qatools.ashot.shooting.ShootingStrategies;
 
+import javax.imageio.ImageIO;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 public class BaseTest {
@@ -71,19 +81,53 @@ public class BaseTest {
         // setDriver(new DriverManager().initializeDriver(browser));
         setDriver(DriverManagerFactory.getManager(BrowserType.valueOf(browser)).createDriver());
 
-
         System.out.println("CURRENT THREAD (Thread.currentThread().getId()): "+Thread.currentThread().getId());
         System.out.println("DRIVER (getDriver()): "+getDriver());
-    }
+    }// startDriver
 
+    @Parameters("browser_testng")
     @AfterMethod
     // public void quitDriver(){
-    public synchronized void quitDriver(){
-        // driver.quit();
+    // public synchronized void quitDriver(){
+    public synchronized void quitDriver(@Optional String browser_testng, ITestResult iTestResult){
         System.out.println("CURRENT THREAD (Thread.currentThread().getId()): "+Thread.currentThread().getId());
         System.out.println("DRIVER (getDriver()): "+getDriver());
+
+        // if(iTestResult.getStatus() == 2){
+        if(iTestResult.getStatus() == ITestResult.FAILURE){
+            File destFile = new File("screenshots_On_Failure" + File.separator +
+                    browser_testng + File.separator +
+                    iTestResult.getTestClass().getRealClass().getSimpleName() + "_" +
+                    iTestResult.getMethod().getMethodName() + ".png");
+            // takeScreenshot(destFile);
+            takeScreenshotUsingAshot(destFile);
+        }
+
+        // driver.quit();
         getDriver().quit();
-    }
+
+    }// quitDriver
+
+    private void takeScreenshot(File destFile) {
+        TakesScreenshot takesScreenshot = (TakesScreenshot) getDriver();
+        File srcFile = takesScreenshot.getScreenshotAs(OutputType.FILE);
+        try {
+            FileUtils.copyFile(srcFile, destFile);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }// takeScreenshot
+
+    private void takeScreenshotUsingAshot(File destFile) {
+        Screenshot screenshot = new AShot().shootingStrategy(ShootingStrategies.viewportPasting(100))
+                .takeScreenshot(getDriver());
+        try {
+            ImageIO.write(screenshot.getImage(), "PNG", destFile);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }// takeScreenshotUsingAshot
+
 
     public void injectCookiesIntoBrowser(Cookies restAssuredCookies){
         List<Cookie> seleniumCookies = new CookieUtils().
