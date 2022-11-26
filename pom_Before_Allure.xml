@@ -12,9 +12,6 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
 
-        <maven.surefire.plugin.version>3.0.0-M7</maven.surefire.plugin.version>
-        <aspectj.version>1.9.9.1</aspectj.version>
-
         <!-- UTF-8 - Setting the Encoding standards -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
@@ -29,44 +26,21 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <!-- <version>3.0.0-M7</version> -->
-                <version>${maven.surefire.plugin.version}</version>
+                <version>3.0.0-M7</version>
                 <configuration>
-                    <argLine>
-                        -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
-                    </argLine>
+
+<!--                Drive Parallel using TestNG-->
                     <suiteXmlFiles>
-                            <suiteXmlFile>src/test/resources/runner/${suiteFile}.xml</suiteXmlFile>
+<!--                    <suiteXmlFile>src/test/resources/runner/03_testng_run_package_pass_browser_name.xml</suiteXmlFile>-->
+<!--                    <suiteXmlFile>src/test/resources/runner/04_testng_run_package_pass_multiple_browsers_name.xml</suiteXmlFile>-->
+                        <suiteXmlFile>src/test/resources/runner/${suiteFile}.xml</suiteXmlFile>
                     </suiteXmlFiles>
+
+<!--                Drive Parallel using Maven Surefire Plugin-->
+<!--                    <parallel>methods</parallel>-->
+<!--                    <threadCount>10</threadCount>-->
                 </configuration>
-                <dependencies>
-                    <!-- https://mvnrepository.com/artifact/org.aspectj/aspectjweaver -->
-                    <dependency>
-                        <groupId>org.aspectj</groupId>
-                        <artifactId>aspectjweaver</artifactId>
-                        <version>${aspectj.version}</version>
-<!--                        <scope>runtime</scope>-->
-                    </dependency>
-                </dependencies>
             </plugin>
-<!--            <plugin>-->
-<!--                <groupId>org.apache.maven.plugins</groupId>-->
-<!--                <artifactId>maven-surefire-plugin</artifactId>-->
-<!--                <version>3.0.0-M7</version>-->
-<!--                <configuration>-->
-
-<!--&lt;!&ndash;                Drive Parallel using TestNG&ndash;&gt;-->
-<!--                    <suiteXmlFiles>-->
-<!--&lt;!&ndash;                    <suiteXmlFile>src/test/resources/runner/03_testng_run_package_pass_browser_name.xml</suiteXmlFile>&ndash;&gt;-->
-<!--&lt;!&ndash;                    <suiteXmlFile>src/test/resources/runner/04_testng_run_package_pass_multiple_browsers_name.xml</suiteXmlFile>&ndash;&gt;-->
-<!--                        <suiteXmlFile>src/test/resources/runner/${suiteFile}.xml</suiteXmlFile>-->
-<!--                    </suiteXmlFiles>-->
-
-<!--&lt;!&ndash;                Drive Parallel using Maven Surefire Plugin&ndash;&gt;-->
-<!--&lt;!&ndash;                    <parallel>methods</parallel>&ndash;&gt;-->
-<!--&lt;!&ndash;                    <threadCount>10</threadCount>&ndash;&gt;-->
-<!--                </configuration>-->
-<!--            </plugin>-->
         </plugins>
     </build>
 

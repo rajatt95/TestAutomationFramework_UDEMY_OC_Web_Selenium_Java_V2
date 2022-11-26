@@ -42,7 +42,7 @@ import java.util.List;
 public class BaseTest {
 
     // protected WebDriver driver;
-    protected ThreadLocal<WebDriver> driver = new ThreadLocal<>();
+    private ThreadLocal<WebDriver> driver = new ThreadLocal<>();
 
     // Sets the current thread's copy of this thread-local variable to the specified value.
         // Most subclasses will have no need to override this method, relying solely on the initialValue method to set the values of thread-locals
