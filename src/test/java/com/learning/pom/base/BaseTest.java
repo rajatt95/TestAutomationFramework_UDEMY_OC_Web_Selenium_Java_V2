@@ -17,6 +17,7 @@ package com.learning.pom.base;
 
 import com.learning.pom.enums.BrowserType;
 import com.learning.pom.factory.DriverManager;
+import com.learning.pom.factory.DriverManagerFactory;
 import com.learning.pom.utils.CookieUtils;
 import io.restassured.http.Cookies;
 import org.openqa.selenium.Cookie;
@@ -66,7 +67,11 @@ public class BaseTest {
             browser = BrowserType.CHROME.toString();
         }
         // driver = new DriverManager().initializeDriver(browser_testng);
-        setDriver(new DriverManager().initializeDriver(browser));
+
+        // setDriver(new DriverManager().initializeDriver(browser));
+        setDriver(DriverManagerFactory.getManager(BrowserType.valueOf(browser)).createDriver());
+
+
         System.out.println("CURRENT THREAD (Thread.currentThread().getId()): "+Thread.currentThread().getId());
         System.out.println("DRIVER (getDriver()): "+getDriver());
     }

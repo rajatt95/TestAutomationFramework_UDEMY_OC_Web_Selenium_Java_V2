@@ -15,9 +15,20 @@
 
 package com.learning.pom.factory;
 
+
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 
-public interface DriverManager {
-    WebDriver createDriver();
+public class FirefoxDriverManager implements DriverManager{
 
-}// DriverManager
+    @Override
+    public WebDriver createDriver() {
+        WebDriverManager.firefoxdriver().setup();
+        WebDriver driver = new FirefoxDriver();
+        driver.manage().window().maximize();
+        return driver;
+    }
+
+}// FirefoxDriverManager

@@ -15,9 +15,31 @@
 
 package com.learning.pom.factory;
 
+import com.learning.pom.enums.BrowserType;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 
-public interface DriverManager {
-    WebDriver createDriver();
+public class DriverManagerFactory {
 
-}// DriverManager
+    public static DriverManager getManager(BrowserType browserType){
+        switch (browserType){
+            case CHROME: return new ChromeDriverManager();
+            case FIREFOX: return new FirefoxDriverManager();
+            default: throw new IllegalStateException("INVALID BROWSER: "+browserType);
+        }
+    }
+
+}// DriverManagerFactory
+
+
+
+
+
+
+
+
+
+
+
+
